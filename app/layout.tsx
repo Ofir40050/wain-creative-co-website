@@ -162,10 +162,57 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Wain Creative Co",
+              url: "https://waincreative.com",
+              logo: "https://waincreative.com/logo.svg",
+              description:
+                "A premium Los Angeles creative studio specializing in high-end web design, content production, social media systems, and digital brand strategy.",
+              telephone: "+1-213-589-5458",
+              sameAs: [
+                "https://www.instagram.com/waincreativeco/",
+                "https://www.linkedin.com/in/wainmusic/",
+              ],
+              founder: {
+                "@type": "Person",
+                name: "Ofir Wainboim",
+                jobTitle: "Creative Director & Lead Developer",
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Los Angeles",
+                addressRegion: "CA",
+                addressCountry: "US",
+              },
+            }),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              url: "https://waincreative.com",
+              name: "Wain Creative Co",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://waincreative.com/?s={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
               "@type": "ProfessionalService",
               name: "Wain Creative Co",
               url: "https://waincreative.com",
-              logo: "https://waincreative.com/og-image.jpg",
+              logo: "https://waincreative.com/logo.svg",
               image: "https://waincreative.com/og-image.jpg",
               areaServed: {
                 "@type": "City",
