@@ -154,4 +154,24 @@
     margin: -1px;
     background: linear-gradient(to right, #ff4d00, #ff0080, #7928ca);
   }
+  /* Infinite logo marquee */
+.logo-marquee {
+  display: flex;
+  white-space: nowrap;
+  animation: logo-marquee-scroll 50s linear infinite;
+}
+
+/* עצירה בהובר - פרימיום */
+.logo-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes logo-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 }
