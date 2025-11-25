@@ -1,7 +1,7 @@
 import { Check, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import type { Metadata } from "next"
-import { sendGtagEvent } from "@/lib/analytics"
+import { TrackedLink } from "@/components/tracking/tracked-link"
 
 const services = [
   {
@@ -438,15 +438,12 @@ export default function ServicesPage() {
                       </p>
                     </div>
 
-                    <Link href="/contact" className="mt-8">
-                      <button
-                        onClick={() => sendGtagEvent("click_book_call", { page: window.location.pathname })}
-                        className="w-full min-h-[56px] md:min-h-[60px] rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black py-4 px-6 font-bold uppercase tracking-[0.25em] transition-all duration-300 flex items-center justify-center gap-2 group hover:opacity-95 hover:-translate-y-[1px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
-                      >
+                    <TrackedLink href="/contact" event="click_book_call" className="mt-8 block">
+                      <button className="w-full min-h-[56px] md:min-h-[60px] rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black py-4 px-6 font-bold uppercase tracking-[0.25em] transition-all duration-300 flex items-center justify-center gap-2 group hover:opacity-95 hover:-translate-y-[1px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
                         <span className="whitespace-pre-line text-center leading-tight">{service.cta}</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </button>
-                    </Link>
+                    </TrackedLink>
                   </div>
                 </div>
               </div>

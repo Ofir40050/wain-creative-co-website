@@ -3,7 +3,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import workProjects from "@/app/work/projects-data"
 import type { Metadata } from "next"
-import { sendGtagEvent } from "@/lib/analytics"
+import { TrackedLink } from "@/components/tracking/tracked-link"
 
 type Project = (typeof workProjects)[number]
 
@@ -209,13 +209,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   >
                     View Services
                   </a>
-                  <a
+                  <TrackedLink
                     href="/contact"
-                    onClick={() => sendGtagEvent("click_book_call", { page: window.location.pathname })}
+                    event="click_book_call"
                     className="inline-flex w-fit items-center gap-2 border border-white/20 px-6 py-3 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-white/90 hover:border-white hover:bg-white/5 transition-colors rounded-lg"
                   >
                     Start a Project
-                  </a>
+                  </TrackedLink>
                 </div>
               )}
             </div>
