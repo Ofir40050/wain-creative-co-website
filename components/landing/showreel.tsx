@@ -1,8 +1,9 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useMemo } from "react"
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
 import { Play } from "lucide-react"
+import Script from "next/script"
 
 export function Showreel() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -14,12 +15,41 @@ export function Showreel() {
 
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.94, 1])
 
+  const videoJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: "Wain Creative Co Showreel",
+      description: "30-second reel of premium web, content, and launch projects by Wain Creative Co.",
+      thumbnailUrl: ["https://www.waincreative.com/showreel-poster.jpg"],
+      uploadDate: "2024-01-01",
+      duration: "PT0M30S",
+      contentUrl: "https://www.waincreative.com/showreel-placeholder.mp4",
+      embedUrl: "https://www.waincreative.com/showreel-placeholder.mp4",
+      publisher: {
+        "@type": "Organization",
+        name: "Wain Creative Co",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://www.waincreative.com/logo.svg",
+        },
+      },
+    }),
+    [],
+  )
+
   return (
     <section
       ref={containerRef}
       className="relative border-y border-white/10 bg-[#0D0D0D] overflow-hidden"
       aria-label="Showreel"
     >
+      <Script
+        id="showreel-videoobject-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }}
+      />
       {/* Ambient glow */}
       <div className="absolute inset-0 pointer-events-none flex justify-center">
         <div className="w-[420px] h-[420px] md:w-[700px] md:h-[700px] bg-pink-500/10 blur-[160px] md:blur-[220px] rounded-full" />

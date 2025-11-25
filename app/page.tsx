@@ -1,3 +1,5 @@
+import type { Metadata } from "next"
+import Script from "next/script"
 import { Hero } from "@/components/landing/hero"
 import { Services } from "@/components/landing/services"
 import { Showreel } from "@/components/landing/showreel"
@@ -5,9 +7,133 @@ import { Portfolio } from "@/components/landing/portfolio"
 import { About } from "@/components/landing/about"
 import { Contact } from "@/components/landing/contact"
 
+const SITE_URL = "https://www.waincreative.com"
+const PAGE_URL = SITE_URL
+const OG_IMAGE = `${SITE_URL}/og-image.jpg`
+const TW_IMAGE = `${SITE_URL}/social-banner.jpg`
+
+const pageTitle = "Wain Creative Co - Premium Web Design & Content Studio in Los Angeles"
+const pageDescription =
+  "Premium websites, content engines, and social launch systems built in Los Angeles. Wain Creative Co designs and develops high-end digital experiences for modern brands and creators."
+const pageKeywords = [
+  "Wain Creative Co",
+  "Los Angeles web design",
+  "creative agency LA",
+  "Next.js studio",
+  "content production Los Angeles",
+  "social media management LA",
+  "premium website design",
+  "digital brand strategy",
+]
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  keywords: pageKeywords,
+  alternates: { canonical: PAGE_URL },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: PAGE_URL,
+    siteName: "Wain Creative Co",
+    title: pageTitle,
+    description: pageDescription,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Wain Creative Co - Digital Studio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+    images: [TW_IMAGE],
+  },
+}
+
 export default function Home() {
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageTitle,
+    url: PAGE_URL,
+    description: pageDescription,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Wain Creative Co",
+      url: SITE_URL,
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: OG_IMAGE,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Wain Creative Co",
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.svg`,
+    },
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: PAGE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${SITE_URL}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Work",
+        item: `${SITE_URL}/work`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Contact",
+        item: `${SITE_URL}/contact`,
+      },
+    ],
+  }
+
   return (
     <main className="min-h-screen bg-[#0D0D0D] text-white selection:bg-pink-500 selection:text-white overflow-x-hidden">
+      <Script
+        id="home-webpage-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
+      <Script
+        id="home-breadcrumbs-jsonld"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="animate-[fadeInUp_0.7s_ease-out]">
         <Hero />
       </div>

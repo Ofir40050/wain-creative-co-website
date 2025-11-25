@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
+import Script from "next/script"
 import { Geist, Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
@@ -21,7 +22,7 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://waincreative.com"),
+  metadataBase: new URL("https://www.waincreative.com"),
   title: {
     default: "Wain Creative Co - Premium Web Design & Content Studio in Los Angeles",
     template: "%s - Wain Creative Co",
@@ -62,15 +63,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0D0D0D" },
-    { media: "(prefers-color-scheme: dark)", color: "#0D0D0D" },
-  ],
   openGraph: {
     title: "Wain Creative Co - Premium Web & Content Studio",
     description:
       "Premium websites, content engines, and digital brand systems built in Los Angeles for creators and modern businesses.",
-    url: "https://waincreative.com",
+    url: "https://www.waincreative.com",
     siteName: "Wain Creative Co",
     images: [
       {
@@ -143,6 +140,19 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        {/* Performance: network hints */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+        {/* Performance: critical asset preloads */}
+        <link rel="preload" as="image" href="/website-logo.png" fetchPriority="high" />
+        <link rel="preload" as="image" href="/og-image.jpg" />
+        <link rel="preload" as="image" href="/social-banner.jpg" />
+        <link rel="preload" as="image" href="/logo.svg" type="image/svg+xml" />
+
+        {/* PWA / mobile */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -155,6 +165,32 @@ export default function RootLayout({
           "font-sans bg-[#0D0D0D] text-white antialiased overflow-x-hidden selection:bg-pink-500 selection:text-white",
         )}
       >
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-FQR6DD4W6D" strategy="afterInteractive" />
+        <Script
+          id="ga-setup"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FQR6DD4W6D', { page_path: window.location.pathname });
+            `,
+          }}
+        />
+        <Script
+          id="clarity-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "ubj6cnr06t");
+            `,
+          }}
+        />
         <PWARegister />
         <Nav />
         <script
@@ -164,8 +200,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Wain Creative Co",
-              url: "https://waincreative.com",
-              logo: "https://waincreative.com/logo.svg",
+              url: "https://www.waincreative.com",
+              logo: "https://www.waincreative.com/logo.svg",
               description:
                 "A premium Los Angeles creative studio specializing in high-end web design, content production, social media systems, and digital brand strategy.",
               telephone: "+1-213-589-5458",
@@ -194,11 +230,11 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              url: "https://waincreative.com",
+              url: "https://www.waincreative.com",
               name: "Wain Creative Co",
               potentialAction: {
                 "@type": "SearchAction",
-                target: "https://waincreative.com/?s={search_term_string}",
+                target: "https://www.waincreative.com/?s={search_term_string}",
                 "query-input": "required name=search_term_string",
               },
             }),
@@ -211,9 +247,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               name: "Wain Creative Co",
-              url: "https://waincreative.com",
-              logo: "https://waincreative.com/logo.svg",
-              image: "https://waincreative.com/og-image.jpg",
+              url: "https://www.waincreative.com",
+              logo: "https://www.waincreative.com/logo.svg",
+              image: "https://www.waincreative.com/og-image.jpg",
               areaServed: {
                 "@type": "City",
                 name: "Los Angeles",
@@ -236,6 +272,26 @@ export default function RootLayout({
                 "Content Strategy",
                 "Video Editing",
                 "Creator Services",
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Wain Creative Co",
+              url: "https://www.waincreative.com",
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "5.0",
+                reviewCount: "32",
+              },
+              sameAs: [
+                "https://www.instagram.com/waincreativeco/",
+                "https://www.linkedin.com/in/wainmusic/",
               ],
             }),
           }}

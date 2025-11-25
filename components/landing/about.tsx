@@ -6,7 +6,11 @@ import Link from "next/link"
 
 export function About() {
   return (
-    <section className="py-24 md:py-32 bg-[#0D0D0D] px-6 md:px-10 lg:px-16">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="py-24 md:py-32 bg-[#0D0D0D] px-6 md:px-10 lg:px-16"
+    >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         
         {/* LEFT COLUMN */}
@@ -21,7 +25,10 @@ export function About() {
           </p>
 
           {/* HEADLINE */}
-          <h2 className="font-bold uppercase tracking-tight leading-[0.95] text-4xl md:text-5xl lg:text-6xl">
+          <h2
+            id="about-heading"
+            className="font-bold uppercase tracking-tight leading-[0.95] text-4xl md:text-5xl lg:text-6xl"
+          >
             Designed for{" "}
             <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
               Impact
@@ -56,26 +63,23 @@ export function About() {
           </div>
 
           {/* STATS */}
-          <div className="pt-10 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/10">
+          <dl className="pt-10 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/10">
             <div>
-              <h4 className="font-bold text-white text-4xl md:text-5xl mb-2">50+</h4>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                Projects Delivered
-              </p>
+              <dt className="sr-only">Projects delivered</dt>
+              <dd className="font-bold text-white text-4xl md:text-5xl mb-2">50+</dd>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Projects Delivered</p>
             </div>
             <div>
-              <h4 className="font-bold text-white text-4xl md:text-5xl mb-2">100%</h4>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                Client Satisfaction
-              </p>
+              <dt className="sr-only">Client satisfaction</dt>
+              <dd className="font-bold text-white text-4xl md:text-5xl mb-2">100%</dd>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Client Satisfaction</p>
             </div>
             <div>
-              <h4 className="font-bold text-white text-4xl md:text-5xl mb-2">LA</h4>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-                Based, Global Reach
-              </p>
+              <dt className="sr-only">Location</dt>
+              <dd className="font-bold text-white text-4xl md:text-5xl mb-2">LA</dd>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Based, Global Reach</p>
             </div>
-          </div>
+          </dl>
         </motion.div>
 
         {/* RIGHT COLUMN */}
@@ -88,8 +92,10 @@ export function About() {
           <div className="absolute inset-0 bg-neutral-900 z-10">
             <Image
               src="/Wain/wain.webp"
-              alt="Studio Aesthetic"
+              alt="Wain Creative Co studio aesthetic in Los Angeles"
               fill
+              priority={false}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-[#0D0D0D] via-transparent to-transparent" />

@@ -1,7 +1,6 @@
-"use client"
-
 import { Check, ArrowRight } from "lucide-react"
 import Link from "next/link"
+import type { Metadata } from "next"
 
 const services = [
   {
@@ -140,15 +139,179 @@ const services = [
   },
 ] as const
 
+const SITE_URL = "https://www.waincreative.com"
+const PAGE_URL = `${SITE_URL}/services`
+const OG_IMAGE = `${SITE_URL}/og-image.jpg`
+const TW_IMAGE = `${SITE_URL}/social-banner.jpg`
+
+const pageTitle = "Services | Wain Creative Co – LA Web Design, Social Media & Content Studio"
+const pageDescription =
+  "Explore Wain Creative Co services: premium web design & development, social media management, content production, video editing, and creator launch systems built in Los Angeles."
+const pageKeywords = [
+  "Wain Creative Co",
+  "Los Angeles creative agency",
+  "LA web design",
+  "Next.js website",
+  "social media management LA",
+  "content studio Los Angeles",
+  "video editing LA",
+  "creator services",
+  "branding",
+  "digital studio",
+].join(", ")
+
+export const metadata: Metadata = {
+  title: pageTitle,
+  description: pageDescription,
+  keywords: pageKeywords,
+  alternates: {
+    canonical: PAGE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: PAGE_URL,
+    siteName: "Wain Creative Co",
+    title: pageTitle,
+    description: pageDescription,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "Wain Creative Co Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+    images: [TW_IMAGE],
+  },
+}
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: pageTitle,
+  url: PAGE_URL,
+  description: pageDescription,
+  publisher: {
+    "@type": "Organization",
+    name: "Wain Creative Co",
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.svg`,
+    sameAs: [
+      "https://www.instagram.com/waincreativeco/",
+      "https://www.linkedin.com/in/wainmusic/",
+    ],
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListOrder: "http://schema.org/ItemListOrderAscending",
+    numberOfItems: services.length,
+    itemListElement: services.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${PAGE_URL}#${s.id}`,
+      item: {
+        "@type": "Service",
+        name: s.title,
+        description: s.description,
+        serviceType: s.title,
+        areaServed: "Los Angeles, CA",
+        provider: {
+          "@type": "Organization",
+          name: "Wain Creative Co",
+          url: SITE_URL,
+        },
+      },
+    })),
+  },
+}
+
 export default function ServicesPage() {
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: PAGE_URL,
+      },
+    ],
+  }
+
+  const servicesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: services.map((s, i) => {
+      const numericPrice = parseInt(s.startingAt.replace(/[^0-9]/g, ""), 10)
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Service",
+          name: s.title,
+          description: s.description,
+          serviceType: s.title,
+          areaServed: "Los Angeles, CA",
+          provider: {
+            "@type": "Organization",
+            name: "Wain Creative Co",
+            url: SITE_URL,
+          },
+          offers: {
+            "@type": "Offer",
+            price: isNaN(numericPrice) ? undefined : numericPrice,
+            priceCurrency: "USD",
+            url: `${PAGE_URL}#${s.id}`,
+            availability: "https://schema.org/InStock",
+          },
+        },
+      }
+    }),
+  }
+
   return (
-    <main className="relative min-h-screen pt-28 md:pt-36 pb-24 md:pb-28 px-6 md:px-10 lg:px-16 bg-[#0D0D0D] overflow-hidden">
+    <main className="relative min-h-screen pt-28 md:pt-32 pb-24 md:pb-28 px-6 md:px-10 lg:px-16 bg-[#0D0D0D] overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
       <div className="pointer-events-none absolute -top-44 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-gradient-to-br from-purple-600/25 via-pink-500/15 to-orange-500/10 blur-[130px]" />
       <div className="pointer-events-none absolute top-1/3 right-[-140px] h-[460px] w-[460px] rounded-full bg-gradient-to-br from-orange-500/18 via-pink-500/12 to-purple-600/22 blur-[120px]" />
 
       {/* Page Header */}
       <section className="max-w-6xl mx-auto mb-20">
-        <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/50 mb-6">
+        <p className="text-sm uppercase tracking-[0.18em] text-white/60 mb-6 leading-[1.45]">
           Services
         </p>
 
@@ -171,37 +334,37 @@ export default function ServicesPage() {
         <div className="inline-flex flex-wrap gap-2 md:gap-3 bg-neutral-950/80 backdrop-blur-md border border-white/10 p-2 md:p-2.5">
           <a
             href="#web-design"
-            className="px-3.5 md:px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/70 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
+            className="px-3.5 md:px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/75 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
           >
             Web
           </a>
           <a
             href="#social-content"
-            className="px-3.5 md:px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/70 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
+            className="px-3.5 md:px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/75 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
           >
             Social
           </a>
           <a
             href="#digital-launch"
-            className="px-3.5 md:px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/70 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
+            className="px-3.5 md:px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/75 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
           >
             Launch
           </a>
           <a
             href="#content-day"
-            className="px-3.5 md:px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/70 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
+            className="px-3.5 md:px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/75 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
           >
             Content Day
           </a>
           <a
             href="#video-editing"
-            className="px-3.5 md:px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/70 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
+            className="px-3.5 md:px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/75 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
           >
             Video
           </a>
           <a
             href="#creator-services"
-            className="px-3.5 md:px-4 py-2 text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/70 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
+            className="px-3.5 md:px-4 py-2 text-xs uppercase tracking-[0.18em] text-white/75 border border-white/15 hover:border-white/40 hover:text-white transition-all hover:-translate-y-[1px]"
           >
             Creator
           </a>

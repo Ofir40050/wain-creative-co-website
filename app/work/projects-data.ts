@@ -1,4 +1,27 @@
-const workProjects = [
+export type WorkCategory = "Websites" | "Social" | "Music" | "Other"
+
+export type WorkProject = {
+  title: string
+  category: WorkCategory
+  year: string
+  type: string
+  slug: string
+  url: string
+  description: string
+  services: string[]
+  images: string[]
+  // SEO helpers (used by pages for 100/100 Lighthouse SEO)
+  seo?: {
+    title?: string
+    description?: string
+    keywords?: string[]
+    ogAlt?: string
+  }
+}
+
+const SITE_URL = "https://www.waincreative.com"
+
+const workProjects: WorkProject[] = [
   {
     title: "Wain Studio",
     category: "Websites",
@@ -23,6 +46,19 @@ const workProjects = [
       "/projects/Wain Studio/wainstudio-5.jpg",
       "/projects/Wain Studio/wainstudio-6.jpg",
     ],
+    seo: {
+      title: "Wain Studio Website | Wain Creative Co",
+      description:
+        "Premium LA studio website built end-to-end by Wain Creative Co. Full brand system, high-performance Next.js build, and cinematic motion design.",
+      keywords: [
+        "Wain Studio website",
+        "Los Angeles web design",
+        "Next.js agency",
+        "premium studio site",
+        "cinematic website",
+      ],
+      ogAlt: "Wain Studio premium website preview",
+    },
   },
   {
     title: "Shir Amosi",
@@ -46,6 +82,18 @@ const workProjects = [
         "/projects/shir amosi/shiramosi-3.jpg",
         "/projects/shir amosi/shiramosi-4.jpg",
     ],
+    seo: {
+      title: "Shir Amosi Portfolio Website | Wain Creative Co",
+      description:
+        "High-end creator portfolio website designed in Los Angeles. Clean grid, refined hierarchy, and smooth narrative flow.",
+      keywords: [
+        "Shir Amosi website",
+        "creator portfolio site",
+        "Los Angeles web design",
+        "minimal premium website",
+      ],
+      ogAlt: "Shir Amosi portfolio website preview",
+    },
  },
   {
     title: "Silverline Records",
@@ -71,6 +119,18 @@ const workProjects = [
       "/projects/silverlinerecords/silverlinerecords-5.jpg",
       "/projects/silverlinerecords/silverlinerecords-6.jpg",
     ],
+    seo: {
+      title: "Silverline Records Website | Wain Creative Co",
+      description:
+        "Cinematic label website with dark premium aesthetic, editorial layout, and dynamic release presentation.",
+      keywords: [
+        "Silverline Records website",
+        "music label site",
+        "cinematic web design",
+        "LA creative agency",
+      ],
+      ogAlt: "Silverline Records label website preview",
+    },
   },
   {
     title: "Soundfield",
@@ -94,7 +154,33 @@ const workProjects = [
       "/projects/SOUNDFIELD/SOUNDFIELD-3.jpg",
       "/projects/SOUNDFIELD/SOUNDFIELD-4.jpg",
     ],
+    seo: {
+      title: "Soundfield Website | Wain Creative Co",
+      description:
+        "Modern conversion-driven brand website with fast-loading architecture and sharp editorial grid.",
+      keywords: [
+        "Soundfield website",
+        "brand website",
+        "conversion focused web design",
+        "Los Angeles agency",
+      ],
+      ogAlt: "Soundfield brand website preview",
+    },
   },
-] as const
+]
+
+export const workProjectSlugs = workProjects.map((p) => p.slug)
+
+export const getWorkProjectBySlug = (slug: string) =>
+  workProjects.find((p) => p.slug === slug)
+
+export const getWorkProjectIndex = (slug: string) =>
+  workProjects.findIndex((p) => p.slug === slug)
+
+export const getWorkProjectOgImage = (slug: string) => {
+  const p = getWorkProjectBySlug(slug)
+  const first = p?.images?.[0]
+  return first ? `${SITE_URL}${first}` : `${SITE_URL}/og-image.jpg`
+}
 
 export default workProjects
