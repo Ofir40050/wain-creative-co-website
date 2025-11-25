@@ -6,10 +6,47 @@ import { Instagram, Linkedin } from "lucide-react"
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    projectType: "Web Design and Development",
+    budgetRange: "Not sure yet",
+    message: "",
+  })
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setIsSubmitted(true)
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error((data as any)?.error || "Something went wrong")
+      }
+
+      setIsSubmitted(true)
+      setFormData({
+        name: "",
+        email: "",
+        projectType: "Web Design and Development",
+        budgetRange: "Not sure yet",
+        message: "",
+      })
+    } catch (err: any) {
+      setError(err?.message || "Failed to send. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -42,10 +79,10 @@ export default function ContactPage() {
                 Email
               </h3>
               <a
-                href="mailto:hello@waincreative.com"
+                href="mailto:contact@waincreative.com"
                 className="text-2xl md:text-3xl font-light text-white hover:text-purple-400 transition-colors"
               >
-                hello@waincreative.com
+                contact@waincreative.com
               </a>
               <p className="text-white/60 leading-relaxed text-base md:text-lg mt-2">
                 Average response time: within 24-48 hours.
@@ -111,7 +148,7 @@ export default function ContactPage() {
             </div>
 
             {/* Availability Note */}
-            <div className="group relative p-7 bg-neutral-950 border border-white/10 rounded-xl hover:border-white/20 hover:bg-white/5 transition-all overflow-hidden">
+            <div className="group relative p-7 bg-neutral-950 border border-white/10 rounded-none hover:border-white/20 hover:bg-white/5 transition-all overflow-hidden">
               <p className="text-white/60 leading-relaxed text-base md:text-lg">
                 Now booking new projects. If you have a launch date or deadline, mention it so we can prioritize correctly.
               </p>
@@ -121,7 +158,7 @@ export default function ContactPage() {
         </div>
 
         {/* Right Column: Form */}
-        <div className="bg-neutral-950 p-7 md:p-10 lg:p-12 border border-white/10 rounded-2xl relative overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+        <div className="bg-neutral-950 p-7 md:p-10 lg:p-12 border border-white/10 rounded-none relative overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
           {/* Decorative Gradient */}
           <div className="absolute -top-12 -right-12 w-72 h-72 bg-purple-900/25 blur-[110px] pointer-events-none" />
 
@@ -131,7 +168,7 @@ export default function ContactPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="h-full flex flex-col items-center justify-center text-center space-y-6 py-20 relative z-10"
             >
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center border border-white/10">
+              <div className="w-20 h-20 rounded-none bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center border border-white/10">
                 <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -161,7 +198,9 @@ export default function ContactPage() {
                 <input
                   required
                   type="text"
-                  className="w-full bg-neutral-900/50 border border-white/15 rounded-lg p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-neutral-900/50 border border-white/15 rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30"
                   placeholder="JOHN DOE"
                 />
               </div>
@@ -173,7 +212,9 @@ export default function ContactPage() {
                 <input
                   required
                   type="email"
-                  className="w-full bg-neutral-900/50 border border-white/15 rounded-lg p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-neutral-900/50 border border-white/15 rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30"
                   placeholder="HELLO@EXAMPLE.COM"
                 />
               </div>
@@ -182,7 +223,11 @@ export default function ContactPage() {
                 <label className="text-xs uppercase tracking-[0.3em] text-white/50">
                   Project Type
                 </label>
-                <select className="w-full bg-neutral-900/50 border border-white/15 rounded-lg p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all appearance-none">
+                <select
+                  value={formData.projectType}
+                  onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                  className="w-full bg-neutral-900/50 border border-white/15 rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all appearance-none"
+                >
                   <option>Web Design and Development</option>
                   <option>Social Media Strategy and Management</option>
                   <option>Content Production and Editing</option>
@@ -195,7 +240,11 @@ export default function ContactPage() {
                 <label className="text-xs uppercase tracking-[0.3em] text-white/50">
                   Budget Range
                 </label>
-                <select className="w-full bg-neutral-900/50 border border-white/15 rounded-lg p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all appearance-none">
+                <select
+                  value={formData.budgetRange}
+                  onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
+                  className="w-full bg-neutral-900/50 border border-white/15 rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all appearance-none"
+                >
                   <option>$500 - $1,500</option>
                   <option>$1,500 - $3,000</option>
                   <option>$3,000 - $6,000</option>
@@ -212,17 +261,26 @@ export default function ContactPage() {
                 <textarea
                   required
                   rows={5}
-                  className="w-full bg-neutral-900/50 border border-white/15 rounded-lg p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full bg-neutral-900/50 border border-white/15 rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30"
                   placeholder="TELL US WHAT YOU NEED, YOUR GOAL, AND YOUR TIMELINE..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black font-bold uppercase tracking-[0.25em] py-5 hover:opacity-90 transition-all shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
+                disabled={isLoading}
+                className="w-full rounded-none bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black font-bold uppercase tracking-[0.25em] py-5 hover:opacity-90 transition-all shadow-[0_10px_40px_rgba(0,0,0,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isLoading ? "Sending..." : "Send Message"}
               </button>
+
+              {error && (
+                <p className="text-red-400 text-sm">
+                  {error}
+                </p>
+              )}
 
               <div className="space-y-2 pt-2">
                 <p className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/50">
