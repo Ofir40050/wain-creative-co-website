@@ -152,6 +152,9 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/social-banner.jpg" />
         <link rel="preload" as="image" href="/logo.svg" type="image/svg+xml" />
 
+        {/* Ahrefs Web Analytics */}
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="8JqWAul/YMLtOjBnBidPaw" async />
+
         {/* PWA / mobile */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
