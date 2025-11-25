@@ -1,6 +1,53 @@
 import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+const NOTION_TOKEN = process.env.NOTION_TOKEN
+const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID
+
+const createNotionLead = async (payload: {
+  name: string
+  email: string
+  projectType?: string
+  budgetRange?: string
+  message: string
+}) => {
+  if (!NOTION_TOKEN || !NOTION_DATABASE_ID) return false
+
+  const { name, email, projectType, budgetRange, message } = payload
+  const body = {
+    parent: { database_id: NOTION_DATABASE_ID },
+    properties: {
+      Name: {
+        title: [{ text: { content: name || "Unknown" } }],
+      },
+      Email: { email },
+      "Project Type": {
+        rich_text: [{ text: { content: projectType || "N/A" } }],
+      },
+      Budget: {
+        rich_text: [{ text: { content: budgetRange || "N/A" } }],
+      },
+      Message: {
+        rich_text: [{ text: { content: message || "" } }],
+      },
+      Source: {
+        rich_text: [{ text: { content: "Contact Form" } }],
+      },
+    },
+  }
+
+  const res = await fetch("https://api.notion.com/v1/pages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${NOTION_TOKEN}`,
+      "Notion-Version": "2022-06-28",
+    },
+    body: JSON.stringify(body),
+  })
+
+  return res.ok
+}
 
 export async function POST(req: Request) {
   try {
@@ -29,12 +76,20 @@ export async function POST(req: Request) {
       `,
     })
 
+    let notionOk = false
+    try {
+      notionOk = await createNotionLead({ name, email, projectType, budgetRange, message })
+    } catch (err) {
+      console.error("Notion lead error", err)
+    }
+
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), { status: 500 })
     }
 
-    return new Response(JSON.stringify({ ok: true }), { status: 200 })
-  } catch {
+    return new Response(JSON.stringify({ ok: true, notion: notionOk }), { status: 200 })
+  } catch (err) {
+    console.error("Contact API error", err)
     return new Response(JSON.stringify({ error: "Server error" }), { status: 500 })
   }
 }
