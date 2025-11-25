@@ -14,26 +14,46 @@ const createNotionLead = async (payload: {
   if (!NOTION_TOKEN || !NOTION_DATABASE_ID) return false
 
   const { name, email, projectType, budgetRange, message } = payload
+  const serviceOption = (() => {
+    const normalized = (projectType || "").toLowerCase()
+    if (normalized.includes("web")) return "Web Design"
+    if (normalized.includes("social")) return "Social & Content"
+    if (normalized.includes("video")) return "Video Editing"
+    if (normalized.includes("artist") || normalized.includes("creator")) return "Artist Services"
+    return "Other"
+  })()
+
+  const properties: Record<string, any> = {
+    Name: {
+      title: [{ text: { content: name || "Unknown" } }],
+    },
+    Email: { email },
+    Service: {
+      select: { name: serviceOption },
+    },
+    Message: {
+      rich_text: [{ text: { content: message || "" } }],
+    },
+    Source: {
+      select: { name: "Website Contact Form" },
+    },
+    Status: {
+      select: { name: "New" },
+    },
+    "Created At": {
+      date: { start: new Date().toISOString() },
+    },
+  }
+
+  if (budgetRange) {
+    properties.Budget = {
+      rich_text: [{ text: { content: budgetRange } }],
+    }
+  }
+
   const body = {
     parent: { database_id: NOTION_DATABASE_ID },
-    properties: {
-      Name: {
-        title: [{ text: { content: name || "Unknown" } }],
-      },
-      Email: { email },
-      "Project Type": {
-        rich_text: [{ text: { content: projectType || "N/A" } }],
-      },
-      Budget: {
-        rich_text: [{ text: { content: budgetRange || "N/A" } }],
-      },
-      Message: {
-        rich_text: [{ text: { content: message || "" } }],
-      },
-      Source: {
-        rich_text: [{ text: { content: "Contact Form" } }],
-      },
-    },
+    properties,
   }
 
   const res = await fetch("https://api.notion.com/v1/pages", {
