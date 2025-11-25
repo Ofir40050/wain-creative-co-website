@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react"
 import { motion } from "framer-motion"
 import { Instagram, Linkedin } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 
 type FAQItem = {
   question: string
@@ -62,6 +63,12 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
         const data = await res.json().catch(() => ({}))
         throw new Error((data as any)?.error || "Something went wrong")
       }
+
+      trackEvent("lead_submit", {
+        projectType: formData.projectType,
+        budgetRange: formData.budgetRange,
+        source: "contact_page_form",
+      })
 
       setIsSubmitted(true)
       setFormData({

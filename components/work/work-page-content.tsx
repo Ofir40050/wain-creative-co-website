@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import type { WorkProject } from "@/app/work/projects-data"
+import { trackEvent } from "@/lib/analytics"
 
 type CategoryFilter = WorkProject["category"] | "All"
 
@@ -65,7 +66,10 @@ export function WorkPageContent({ projects }: WorkPageContentProps) {
             return (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => {
+                  setActiveCategory(cat)
+                  trackEvent("work_filter_change", { category: cat })
+                }}
                 className={[
                   "text-xs uppercase tracking-[0.18em] px-4 md:px-5 py-2.5 md:py-3 border transition-all duration-300",
                   "focus:outline-none focus:ring-1 focus:ring-white/40",
