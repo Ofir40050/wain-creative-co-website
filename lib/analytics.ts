@@ -9,3 +9,11 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
     window.clarity("event", eventName, params)
   }
 }
+
+export const sendGtagEvent = (eventName: string, params: Record<string, any> = {}) => {
+  if (typeof window === "undefined") return
+  const gtag = (window as any).gtag
+  if (typeof gtag === "function") {
+    gtag("event", eventName, params)
+  }
+}

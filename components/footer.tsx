@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Instagram, Linkedin } from "lucide-react"
+import { sendGtagEvent } from "@/lib/analytics"
 
 export function Footer() {
   return (
@@ -35,7 +36,11 @@ export function Footer() {
           <Link href="/about" className="hover:text-white transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white/70 after:transition-all after:duration-300 hover:after:w-full">
             About
           </Link>
-          <Link href="/contact" className="hover:text-white transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white/70 after:transition-all after:duration-300 hover:after:w-full">
+          <Link
+            href="/contact"
+            onClick={() => sendGtagEvent("click_book_call", { page: window.location.pathname })}
+            className="hover:text-white transition-colors relative after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-white/70 after:transition-all after:duration-300 hover:after:w-full"
+          >
             Contact
           </Link>
         </nav>
@@ -65,6 +70,7 @@ export function Footer() {
           <Link
             href="/contact"
             className="hidden md:inline-flex items-center bg-white text-black text-[10px] uppercase tracking-[0.3em] font-bold py-1.5 px-3 rounded-lg transition-all duration-300 hover:opacity-95 hover:-translate-y-[1px] hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)] active:translate-y-0 active:opacity-90"
+            onClick={() => sendGtagEvent("click_book_call", { page: window.location.pathname })}
           >
             Start a project
           </Link>

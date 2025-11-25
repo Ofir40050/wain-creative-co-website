@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react"
 import { motion } from "framer-motion"
 import { Instagram, Linkedin } from "lucide-react"
-import { trackEvent } from "@/lib/analytics"
+import { trackEvent, sendGtagEvent } from "@/lib/analytics"
 
 type FAQItem = {
   question: string
@@ -69,6 +69,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
         budgetRange: formData.budgetRange,
         source: "contact_page_form",
       })
+      sendGtagEvent("submit_contact_form", { page: window.location.pathname })
 
       setIsSubmitted(true)
       setFormData({

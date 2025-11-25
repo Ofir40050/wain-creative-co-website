@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { trackEvent } from "@/lib/analytics"
+import { trackEvent, sendGtagEvent } from "@/lib/analytics"
 
 export function Nav() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -72,7 +72,10 @@ export function Nav() {
 
             <Link href="/contact" className="ml-2">
               <button
-                onClick={() => trackEvent("cta_click", { location: "nav_desktop_start_project" })}
+                onClick={() => {
+                  trackEvent("cta_click", { location: "nav_desktop_start_project" })
+                  sendGtagEvent("click_book_call", { page: window.location.pathname })
+                }}
                 className="px-5 py-2.5 text-[10px] md:text-xs uppercase font-bold tracking-[0.25em] rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black hover:opacity-95 hover:-translate-y-[1px] hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)] transition-all duration-300"
               >
                 Start Project
@@ -134,7 +137,10 @@ export function Nav() {
 
               <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                 <button
-                  onClick={() => trackEvent("cta_click", { location: "nav_mobile_start_project" })}
+                  onClick={() => {
+                    trackEvent("cta_click", { location: "nav_mobile_start_project" })
+                    sendGtagEvent("click_book_call", { page: window.location.pathname })
+                  }}
                   className="mt-6 px-8 py-3 text-base font-bold uppercase tracking-[0.2em] rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black hover:opacity-95 transition-all"
                 >
                   Start Project

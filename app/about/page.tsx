@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import Script from "next/script"
+import { sendGtagEvent } from "@/lib/analytics"
 
 export const metadata = {
   title: "About | Wain Creative Co - LA Web Design & Content Studio",
@@ -154,6 +155,7 @@ export default function AboutPage() {
           </Link>
           <Link
             href="/work"
+            onClick={() => sendGtagEvent("click_view_work", { page: window.location.pathname })}
             className="inline-flex px-7 py-3 md:px-8 md:py-4 border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition-all rounded-lg backdrop-blur-sm uppercase tracking-[0.22em] text-xs font-semibold"
           >
             View Work
@@ -519,7 +521,10 @@ export default function AboutPage() {
           </p>
 
           <Link href="/contact" className="relative z-10 inline-block">
-            <button className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black px-10 py-5 font-bold uppercase tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all inline-flex items-center gap-3">
+            <button
+              onClick={() => sendGtagEvent("click_book_call", { page: window.location.pathname })}
+              className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black px-10 py-5 font-bold uppercase tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all inline-flex items-center gap-3"
+            >
               Start Project
               <ArrowRight className="w-5 h-5" />
             </button>

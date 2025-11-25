@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { trackEvent } from "@/lib/analytics"
+import { trackEvent, sendGtagEvent } from "@/lib/analytics"
 
 export function Hero() {
   return (
@@ -62,7 +62,10 @@ export function Hero() {
           >
             <Link href="/contact">
               <button
-                onClick={() => trackEvent("cta_click", { action: "book_call", location: "hero" })}
+                onClick={() => {
+                  trackEvent("cta_click", { action: "book_call", location: "hero" })
+                  sendGtagEvent("click_book_call", { page: window.location.pathname })
+                }}
                 className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full sm:w-auto"
               >
                 Book a Call
@@ -72,7 +75,10 @@ export function Hero() {
 
             <Link href="/work">
               <button
-                onClick={() => trackEvent("cta_click", { action: "view_work", location: "hero" })}
+                onClick={() => {
+                  trackEvent("cta_click", { action: "view_work", location: "hero" })
+                  sendGtagEvent("click_view_work", { page: window.location.pathname })
+                }}
                 className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 View Work
