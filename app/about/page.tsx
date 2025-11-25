@@ -173,7 +173,8 @@ export default function AboutPage() {
               alt="Wain Creative Studio"
               fill
               className="object-cover opacity-70"
-              priority
+              priority={false}
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-orange-900/20 opacity-70" />
             <div className="absolute inset-4 rounded-lg border border-white/10" />

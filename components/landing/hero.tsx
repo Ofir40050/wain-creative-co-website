@@ -1,12 +1,14 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { trackEvent, sendGtagEvent } from "@/lib/analytics"
 
 export function Hero() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-28 md:pt-32 pb-20 bg-[#0D0D0D]">
       <div className="absolute inset-0 pointer-events-none flex justify-center"><div className="w-[600px] h-[600px] md:w-[900px] md:h-[900px] bg-pink-500/10 blur-[180px] md:blur-[260px] rounded-full" /></div>
@@ -17,9 +19,9 @@ export function Hero() {
       <div className="z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14">
         {/* Left Column: Logo */}
         <motion.div
-          initial={{ opacity: 0, x: -20, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.8 }}
+          initial={reduceMotion ? undefined : { opacity: 0, x: -20, scale: 0.96 }}
+          animate={reduceMotion ? undefined : { opacity: 1, x: 0, scale: 1 }}
+          transition={reduceMotion ? undefined : { duration: 0.8 }}
           className="flex-shrink-0"
         >
           <Image
@@ -36,29 +38,29 @@ export function Hero() {
         <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
           <motion.h1
             className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase leading-[0.9] mb-6 drop-shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={reduceMotion ? undefined : { duration: 0.8, delay: 0.2 }}
           >
-            Where Ideas Become<br />
-            Digital Presence<br />
-            <span className="text-gradient">Built for LA&apos;s Creators</span>
+            Premium Web Design & Content<br />
+            Built for LA&apos;s Creators<br />
+            <span className="text-gradient">Digital Experiences That Convert</span>
           </motion.h1>
 
           <motion.p
             className="text-xs md:text-base text-white/70 font-light mb-10 max-w-md leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={reduceMotion ? undefined : { duration: 0.8, delay: 0.4 }}
           >
             Design-forward websites, thoughtful content, and seamless digital systems, crafted to feel as good as they look.
           </motion.p>
 
           <motion.div
             className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={reduceMotion ? undefined : { duration: 0.8, delay: 0.6 }}
           >
             <Link href="/contact">
               <button

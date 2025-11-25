@@ -187,6 +187,79 @@ export default function Home() {
       <div className="mt-20 md:mt-32">
         <About />
       </div>
+      {/* SEO content block */}
+      <section className="mt-16 md:mt-28 px-6 md:px-10 lg:px-16">
+        <div className="max-w-6xl mx-auto rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-black/40 to-black/70 p-8 md:p-12 shadow-[0_20px_90px_rgba(0,0,0,0.7)] space-y-10 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-20 -left-10 w-72 h-72 bg-orange-500/10 blur-[120px]" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600/10 blur-[140px]" />
+          </div>
+
+          <div className="relative flex flex-wrap items-center gap-3">
+            <span className="px-4 py-1 text-[11px] uppercase tracking-[0.2em] rounded-full border border-white/15 bg-white/10 text-white/80">
+              LA-built studio
+            </span>
+            <span className="px-4 py-1 text-[11px] uppercase tracking-[0.2em] rounded-full border border-white/15 bg-white/5 text-white/70">
+              Web · Social · Video · Creator
+            </span>
+          </div>
+
+          <div className="relative space-y-3">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight leading-[1.05]">
+              Premium web design, content systems, and launches built in Los Angeles
+            </h2>
+            <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-4xl">
+              We build custom Next.js websites, social/content engines, and creator-ready launches engineered for speed, clarity, and conversion—no templates or generic funnels.
+            </p>
+          </div>
+
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { label: "Speed", text: "Next.js + React + TypeScript for fast load and SEO." },
+              { label: "Conversion", text: "UX, motion, and funnels tuned to move people to action." },
+              { label: "Content", text: "Web + social + video aligned as one repeatable system." },
+            ].map((item) => (
+              <div key={item.label} className="p-6 rounded-2xl border border-white/10 bg-white/[0.03] space-y-2">
+                <p className="text-[11px] uppercase tracking-[0.25em] text-white/60">{item.label}</p>
+                <p className="text-white/80 leading-relaxed text-sm md:text-base">{item.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] space-y-3">
+              <h3 className="text-xl md:text-2xl font-semibold uppercase tracking-tight">What we deliver</h3>
+              <ul className="space-y-2 text-white/75 leading-relaxed">
+                <li>Custom web design & development with sharp UX, motion, and performance.</li>
+                <li>Social and content strategy with daily execution, reels/TikTok, and copy.</li>
+                <li>Video editing and post for brand films and high-retention shorts.</li>
+                <li>Creator/artist launches: release pages, EPKs, visualizers, and campaign assets.</li>
+              </ul>
+            </div>
+            <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.02] space-y-3">
+              <h3 className="text-xl md:text-2xl font-semibold uppercase tracking-tight">Why it works</h3>
+              <ul className="space-y-2 text-white/75 leading-relaxed">
+                <li>Next.js, React, and TypeScript foundations for speed, SEO, and scale.</li>
+                <li>Web, social, and video aligned into one repeatable growth engine.</li>
+                <li>Premium visual language—typography, grid, motion, and cohesive identity.</li>
+                <li>Conversion-first decisions: funnels, retention, and measurable outcomes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <p className="text-white/80 text-base md:text-lg leading-relaxed max-w-3xl">
+              Flagship sites, social/content programs, or full launch packages. Built in LA, shipping worldwide. Launch faster, tell a sharper story, convert more of the right audience.
+            </p>
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-3 px-7 py-3 rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black font-semibold uppercase tracking-wide hover:opacity-90 transition shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            >
+              Start your project
+            </a>
+          </div>
+        </div>
+      </section>
       <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-16 md:my-24" />
       <Contact />
     </main>

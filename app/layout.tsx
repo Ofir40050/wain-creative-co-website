@@ -24,11 +24,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.waincreative.com"),
   title: {
-    default: "Wain Creative Co - Premium Web Design & Content Studio in Los Angeles",
+    default: "Wain Creative Co — LA Web Design & Content Studio",
     template: "%s - Wain Creative Co",
   },
   description:
-    "Wain Creative Co is a Los Angeles-based creative studio specializing in premium websites, content systems, social media strategy, and high-end digital brand experiences for creators and businesses.",
+    "Premium web design, content systems and brand experiences built in Los Angeles. Wain Creative Co helps modern brands grow online.",
   keywords: [
     "Wain Creative Co",
     "web design Los Angeles",

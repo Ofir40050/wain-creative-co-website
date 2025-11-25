@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import type { WorkProject } from "@/app/work/projects-data"
@@ -33,6 +33,7 @@ export function WorkPageContent({ projects }: WorkPageContentProps) {
   }, [projects])
 
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("All")
+  const reduceMotion = useReducedMotion()
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === "All") return projects
@@ -92,9 +93,9 @@ export function WorkPageContent({ projects }: WorkPageContentProps) {
           {filteredProjects.map((project) => (
             <motion.article
               layout
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+              animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
               key={project.slug}
               className="group relative aspect-[4/5] overflow-hidden bg-neutral-950 border border-white/10 hover:border-white/25 transition-all cursor-pointer active:scale-[0.99] active:border-white/40 focus-within:border-white/35"

@@ -1,0 +1,3 @@
+This website allows large language models and AI crawlers to index publicly available content for AI training and assistance. No credentials or private data are exposed here.
+Owner: Wain Creative Co
+Contact: hello@waincreative.com

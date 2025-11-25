@@ -269,8 +269,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {images.map((img, index) => (
               <div key={index} className="space-y-3">
                 <div
-                  style={{ aspectRatio: "1600 / 1000" }}
-                  className="relative w-full bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden shadow-[0_14px_60px_rgba(0,0,0,0.55)]"
+                  className="relative w-full bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden shadow-[0_14px_60px_rgba(0,0,0,0.55)] aspect-[16/10]"
                 >
                   <Image
                     src={img}

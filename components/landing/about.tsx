@@ -1,10 +1,12 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
 export function About() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section
       id="about"
@@ -15,9 +17,9 @@ export function About() {
         
         {/* LEFT COLUMN */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          initial={reduceMotion ? false : { opacity: 0, x: -20 }}
+          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           className="space-y-10"
         >
           <p className="text-xs uppercase tracking-[0.3em] text-white/50">
@@ -85,9 +87,9 @@ export function About() {
         {/* RIGHT COLUMN */}
         <motion.div
           className="relative h-[380px] md:h-[520px] w-full"
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
+          whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
         >
           <div className="absolute inset-0 bg-neutral-900 z-10">
             <Image

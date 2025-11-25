@@ -1,19 +1,17 @@
 "use client"
 
 import { useRef, useState, useMemo } from "react"
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion"
+import { AnimatePresence, motion, useScroll } from "framer-motion"
 import { Play } from "lucide-react"
 import Script from "next/script"
 
 export function Showreel() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const { scrollYProgress } = useScroll({
+  useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   })
-
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.94, 1])
 
   const videoJsonLd = useMemo(
     () => ({
@@ -57,10 +55,7 @@ export function Showreel() {
       <div onClick={() => setIsOpen(true)} className="relative w-full h-[55vh] md:h-[80vh] cursor-pointer group overflow-hidden">
 
         {/* Video Layer */}
-        <motion.div
-          style={{ scale }}
-          className="absolute inset-0 bg-neutral-900 flex items-center justify-center"
-        >
+        <motion.div className="absolute inset-0 bg-neutral-900 flex items-center justify-center">
           {/* Video Loop (placeholder until you swap) */}
           <video
             className="absolute inset-0 w-full h-full object-cover opacity-70"

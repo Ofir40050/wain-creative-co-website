@@ -23,6 +23,12 @@ export function Footer() {
           <p className="mt-2 text-white/40 text-[10px] md:text-xs tracking-[0.25em] uppercase text-center md:text-left max-w-[260px]">
             Creative systems built for modern brands.
           </p>
+          <div className="mt-3 text-white/55 text-xs space-y-1 text-center md:text-left">
+            <p>Los Angeles, CA</p>
+            <a className="hover:text-white transition-colors" href="tel:+12135895458">
+              +1 (213) 589-5458
+            </a>
+          </div>
         </div>
 
         {/* Center: Nav */}
