@@ -6,6 +6,7 @@ import { Showreel } from "@/components/landing/showreel"
 import { Portfolio } from "@/components/landing/portfolio"
 import { About } from "@/components/landing/about"
 import { Contact } from "@/components/landing/contact"
+import { Brands } from "@/components/landing/brands"
 
 const SITE_URL = "https://www.waincreative.com"
 const PAGE_URL = SITE_URL
@@ -136,6 +137,9 @@ export default function Home() {
       />
       <div className="animate-[fadeInUp_0.7s_ease-out]">
         <Hero />
+      </div>
+      <div className="mt-4 md:mt-10 animate-[fadeIn_0.9s_ease-out]">
+        <Brands />
       </div>
       {/* Highlight Offer: Website + Social Launch Package */}
       <section className="relative bg-[#111111] border-y border-white/10 py-14 md:py-20 px-6 md:px-10 lg:px-16 animate-[fadeIn_0.9s_ease-out]">

@@ -123,3 +123,60 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes logo-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .logo-marquee {
+    display: inline-flex;
+    animation: logo-marquee 18s linear infinite;
+    animation-play-state: running;
+    will-change: transform;
+  }
+  .logo-marquee-item {
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .logo-marquee-item:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 14px 32px rgba(255, 255, 255, 0.08));
+  }
+}
+
+@keyframes logo-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@layer utilities {
+  .logo-orbit {
+    position: relative;
+    width: clamp(360px, 70vw, 720px);
+    height: clamp(360px, 70vw, 720px);
+    animation: logo-orbit-spin 38s linear infinite;
+  }
+  .logo-orbit:hover,
+  .pause-animation {
+    animation-play-state: paused;
+  }
+  .orbit-item {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transition: transform 0.4s ease, filter 0.3s ease;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.45));
+  }
+  .orbit-item:hover {
+    transform: scale(1.06) translateZ(0);
+    filter: drop-shadow(0 12px 26px rgba(255,255,255,0.08));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-orbit {
+    animation-play-state: paused;
+  }
+}
