@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { trackEvent } from "@/lib/analytics"
 
 export function Hero() {
   return (
@@ -60,14 +61,20 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <Link href="/contact">
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full sm:w-auto">
+              <button
+                onClick={() => trackEvent("cta_click", { action: "book_call", location: "hero" })}
+                className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full sm:w-auto"
+              >
                 Book a Call
                 <div className="absolute inset-0 border border-white group-hover:translate-x-1 group-hover:translate-y-1 transition-transform duration-300 pointer-events-none" />
               </button>
             </Link>
 
             <Link href="/work">
-              <button className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto">
+              <button
+                onClick={() => trackEvent("cta_click", { action: "view_work", location: "hero" })}
+                className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto"
+              >
                 View Work
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
