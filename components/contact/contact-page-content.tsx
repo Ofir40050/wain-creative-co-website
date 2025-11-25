@@ -38,7 +38,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
       newErrors.name = "Add your name so we know who to reply to."
     }
 
-    if (!formData.email.trim() || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Use a valid email so we can respond."
     }
 
