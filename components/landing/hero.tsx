@@ -37,14 +37,14 @@ export function Hero() {
         {/* Right Column: Text */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
           <motion.h1
-            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase leading-[0.9] mb-6 drop-shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
-            initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={reduceMotion ? undefined : { duration: 0.8, delay: 0.2 }}
-          >
-            Premium Web Design & Content<br />
-            Built for LA&apos;s Creators<br />
-            <span className="text-gradient">Digital Experiences That Convert</span>
+          className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase leading-[0.9] mb-6 drop-shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+          initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={reduceMotion ? undefined : { duration: 0.8, delay: 0.2 }}
+        >
+            Where ideas become<br />
+            Digital presence<br />
+            <span className="text-gradient">Built for LA&apos;s creators</span>
           </motion.h1>
 
           <motion.p
