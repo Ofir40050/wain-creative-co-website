@@ -187,9 +187,6 @@ export default function Home() {
         <Services />
       </div>
       <div className="animate-[fadeIn_0.9s_ease-out]">
-        <Showreel />
-      </div>
-      <div className="animate-[fadeIn_0.9s_ease-out]">
         <Portfolio />
       </div>
       <div className="animate-[fadeIn_0.9s_ease-out]">
