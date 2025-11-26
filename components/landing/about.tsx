@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
+import { StudioStats } from "@/components/shared/studio-stats"
+
 export function About() {
   const reduceMotion = useReducedMotion()
 
@@ -66,23 +68,7 @@ export function About() {
 
           {/* STATS */}
           <div className="pt-10 border-t border-white/10">
-            <dl className="flex items-start justify-between gap-4 md:gap-8 text-center md:text-left px-1">
-              <div className="flex-1">
-                <dt className="sr-only">Projects delivered</dt>
-                <dd className="font-bold text-white text-2xl md:text-4xl mb-2">50+</dd>
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">Projects Delivered</p>
-              </div>
-              <div className="flex-1">
-                <dt className="sr-only">Client satisfaction</dt>
-                <dd className="font-bold text-white text-2xl md:text-4xl mb-2">100%</dd>
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">Client Satisfaction</p>
-              </div>
-              <div className="flex-1">
-                <dt className="sr-only">Location</dt>
-                <dd className="font-bold text-white text-2xl md:text-4xl mb-2">LA</dd>
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">Based, Global Reach</p>
-              </div>
-            </dl>
+            <StudioStats variant="minimal" />
           </div>
         </motion.div>
 

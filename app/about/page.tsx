@@ -1,7 +1,9 @@
-import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 import Script from "next/script"
+
+import { Button } from "@/components/shared/button"
+import { StudioStats } from "@/components/shared/studio-stats"
 import { TrackedLink } from "@/components/tracking/tracked-link"
 
 export const metadata = {
@@ -193,21 +195,7 @@ export default function AboutPage() {
               No templates. Custom, grid‑aligned builds engineered to convert and scale.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-6 pt-4">
-              <div className="border border-white/10 p-6 bg-neutral-950">
-                <div className="text-3xl md:text-4xl font-bold text-white">5+ Years</div>
-                <div className="text-xs uppercase tracking-[0.3em] text-white/50 mt-2">
-                  Digital experience
-                </div>
-              </div>
-              <div className="border border-white/10 p-6 bg-neutral-950">
-                <div className="text-3xl md:text-4xl font-bold text-white">50+ Projects</div>
-                <div className="text-xs uppercase tracking-[0.3em] text-white/50 mt-2">
-                  Delivered end to end
-                </div>
-              </div>
-            </div>
+            <StudioStats layout="grid" className="pt-4" />
           </div>
         </div>
       </section>
@@ -223,7 +211,7 @@ export default function AboutPage() {
               A simple, repeatable flow that turns your brand into a premium digital product.
             </p>
             <a href="#cta" className="inline-block mt-6 text-sm uppercase tracking-[0.18em] text-white/80 border-b border-white/25 pb-1 hover:text-white hover:border-white transition-colors">
-              Start your project
+              Start a Project
             </a>
           </div>
 
@@ -289,7 +277,7 @@ export default function AboutPage() {
               End‑to‑end creative and digital execution for brands that want a serious upgrade in look, motion, and performance.
             </p>
             <a href="#cta" className="inline-block mt-6 text-sm uppercase tracking-[0.18em] text-white/80 border-b border-white/25 pb-1 hover:text-white hover:border-white transition-colors">
-              Book the next slot
+              Start a Project
             </a>
           </div>
 
@@ -393,7 +381,7 @@ export default function AboutPage() {
           ))}
         </div>
         <a href="#cta" className="inline-block mt-8 text-sm uppercase tracking-[0.18em] text-white/80 border-b border-white/25 pb-1 hover:text-white hover:border-white transition-colors">
-          Schedule a build
+          Book a Call
         </a>
       </section>
 
@@ -456,11 +444,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <a
-            href="#cta"
-            className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto">
-            Start a Project
-          </a>
+          <Button intent="start-project" href="#cta" variant="secondary" className="w-full sm:w-auto" />
         </div>
       </section>
 
@@ -518,11 +502,9 @@ export default function AboutPage() {
             and drive real growth, let’s talk.
           </p>
 
-          <TrackedLink href="/contact" event="click_book_call" className="relative z-10 inline-block">
-            <button className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full sm:w-auto">
-              Start Project
-            </button>
-          </TrackedLink>
+          <div className="relative z-10 inline-block">
+            <Button intent="book-call" href="/contact" variant="primary" />
+          </div>
         </div>
       </section>
 
@@ -533,12 +515,7 @@ export default function AboutPage() {
 
       {/* Mobile persistent CTA */}
       <div className="fixed bottom-5 inset-x-5 md:hidden z-40">
-        <a
-          href="#cta"
-          className="block text-center bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black font-bold uppercase tracking-[0.22em] py-4 rounded-xl shadow-[0_10px_50px_rgba(0,0,0,0.55)]"
-        >
-          Start Project
-        </a>
+        <Button intent="start-project" href="#cta" className="w-full" />
       </div>
     </main>
   )

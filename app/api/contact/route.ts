@@ -8,12 +8,13 @@ const createNotionLead = async (payload: {
   name: string
   email: string
   projectType?: string
-  budgetRange?: string
+  budget?: string
+  timeline?: string
   message: string
 }) => {
   if (!NOTION_TOKEN || !NOTION_DATABASE_ID) return false
 
-  const { name, email, projectType, budgetRange, message } = payload
+  const { name, email, projectType, budget, timeline, message } = payload
   const serviceOption = (() => {
     const normalized = (projectType || "").toLowerCase()
     if (normalized.includes("web")) return "Web Design"
@@ -45,9 +46,15 @@ const createNotionLead = async (payload: {
     },
   }
 
-  if (budgetRange) {
+  if (budget) {
     properties.Budget = {
-      rich_text: [{ text: { content: budgetRange } }],
+      rich_text: [{ text: { content: budget } }],
+    }
+  }
+
+  if (timeline) {
+    properties.Timeline = {
+      rich_text: [{ text: { content: timeline } }],
     }
   }
 
@@ -71,43 +78,79 @@ const createNotionLead = async (payload: {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    const { name, email, projectType, budgetRange, message } = body
+    const contentType = req.headers.get("content-type")?.toLowerCase() || ""
+    const body = contentType.includes("application/json") ? await req.json() : Object.fromEntries((await req.formData()).entries())
 
-    if (!name || !email || !message) {
+    const fullName = (body.fullName || body.name || "").toString().trim()
+    const email = (body.email || "").toString().trim()
+    const projectType = (body.projectType || "").toString().trim()
+    const budget = (body.budget || body.budgetRange || "").toString().trim()
+    const timeline = (body.timeline || "").toString().trim()
+    const message = (body.message || "").toString().trim()
+
+    if (!fullName || !email || !projectType || !budget || !message) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 })
     }
 
-    const { error } = await resend.emails.send({
+    const timelineText = timeline || "Not specified"
+    const firstName = fullName.split(" ")[0] || "there"
+
+    const internal = await resend.emails.send({
       from: "Wain Creative Co <contact@waincreative.com>",
-      to: ["contact@waincreative.com"],
+      to: ["wain@waincreative.com", "contact@waincreative.com"],
       replyTo: email,
-      subject: `New Project Request from ${name}`,
-      html: `
-        <div style="font-family: Inter, Arial, sans-serif; color:#111; line-height:1.6;">
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          ${projectType ? `<p><strong>Project Type:</strong> ${projectType}</p>` : ""}
-          ${budgetRange ? `<p><strong>Budget:</strong> ${budgetRange}</p>` : ""}
-          <p><strong>Message:</strong></p>
-          <p style="white-space:pre-wrap;">${message}</p>
-        </div>
-      `,
+      subject: `New project inquiry – ${fullName}`,
+      text: [
+        "New project brief from the website:",
+        "",
+        `• Name: ${fullName}`,
+        `• Email: ${email}`,
+        `• Project type: ${projectType}`,
+        `• Budget: ${budget}`,
+        `• Timeline: ${timelineText}`,
+        "",
+        "Message:",
+        message,
+        "",
+        "- Wain Creative Co website",
+      ].join("\n"),
     })
 
-    let notionOk = false
+    const autoresponse = await resend.emails.send({
+      from: "Wain Creative Co <contact@waincreative.com>",
+      to: email,
+      replyTo: "contact@waincreative.com",
+      subject: "Got your project brief – Wain Creative Co",
+      text: [
+        `Hey ${firstName},`,
+        "",
+        "Thanks for reaching out and sharing your project with Wain Creative Co.",
+        "We just got your form and will review it within the next 24–48 hours.",
+        "",
+        "If it looks like a good fit, we’ll follow up with:",
+        "• a few clarifying questions, or",
+        "• a short call to map the project and your launch.",
+        "",
+        "If you need to add anything in the meantime, you can reply directly to this email.",
+        "",
+        "Talk soon,",
+        "Wain Creative Co",
+        "contact@waincreative.com",
+      ].join("\n"),
+    })
+
+    if (internal.error || autoresponse.error) {
+      console.error("Email send failed", internal.error || autoresponse.error)
+      return new Response(JSON.stringify({ error: "Email sending failed" }), { status: 500 })
+    }
+
     try {
-      notionOk = await createNotionLead({ name, email, projectType, budgetRange, message })
+      await createNotionLead({ name: fullName, email, projectType, budget, timeline, message })
     } catch (err) {
       console.error("Notion lead error", err)
     }
 
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), { status: 500 })
-    }
-
-    return new Response(JSON.stringify({ ok: true, notion: notionOk }), { status: 200 })
+    return new Response(JSON.stringify({ success: true }), { status: 200 })
   } catch (err) {
     console.error("Contact API error", err)
     return new Response(JSON.stringify({ error: "Server error" }), { status: 500 })

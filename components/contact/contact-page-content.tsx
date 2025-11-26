@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react"
 import { motion } from "framer-motion"
-import { Instagram, Linkedin } from "lucide-react"
+import { ArrowRight, Instagram, Linkedin } from "lucide-react"
 import { trackEvent, sendGtagEvent } from "@/lib/analytics"
 
 type FAQItem = {
@@ -11,10 +11,10 @@ type FAQItem = {
 }
 
 type ContactPageContentProps = {
-  faqs: FAQItem[]
+  faqs?: FAQItem[]
 }
 
-export function ContactPageContent({ faqs }: ContactPageContentProps) {
+export function ContactPageContent({ faqs = [] }: ContactPageContentProps) {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -25,6 +25,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
     email: "",
     projectType: "Web Design and Development",
     budgetRange: "Not sure yet",
+    timeline: "Next 1-3 months",
     message: "",
   })
 
@@ -77,6 +78,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
         email: "",
         projectType: "Web Design and Development",
         budgetRange: "Not sure yet",
+        timeline: "Next 1-3 months",
         message: "",
       })
     } catch (err: any) {
@@ -90,6 +92,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
   const emailId = "contact-email"
   const projectTypeId = "contact-project-type"
   const budgetId = "contact-budget"
+  const timelineId = "contact-timeline"
   const messageId = "contact-message"
 
   return (
@@ -98,7 +101,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
         {/* Left Column: Info */}
         <div>
           <p className="text-sm uppercase tracking-[0.18em] text-white/60 mb-6 leading-[1.45]">
-            Start Project
+            Start a Project
           </p>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight leading-[0.9] mb-8">
@@ -202,6 +205,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               className="h-full flex flex-col items-center justify-center text-center space-y-6 py-20 relative z-10"
+              role="status"
               aria-live="polite"
             >
               <div className="w-20 h-20 rounded-none bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center border border-white/10">
@@ -211,19 +215,28 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
               </div>
 
               <h3 className="font-bold uppercase tracking-tight text-lg md:text-xl lg:text-2xl">
-                Request received
+                Got it. Your project is in.
               </h3>
 
               <p className="text-white/70 leading-relaxed text-base md:text-lg max-w-sm">
-                Thanks for reaching out. We’ll review your request and reply with next steps.
+                We’ll review your details and get back to you within 24–48 hours with next steps. If it’s a good fit, we’ll hop on a quick call and map your launch together.
               </p>
 
-              <button
-                onClick={() => setIsSubmitted(false)}
-                className="mt-6 text-xs uppercase tracking-[0.3em] border-b border-white/30 pb-1 hover:border-white transition-colors"
-              >
-                Send another message
-              </button>
+              <div className="flex flex-col items-center gap-3">
+                <a
+                  href="/work"
+                  className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-white hover:text-pink-400 transition-colors"
+                >
+                  View Work
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="text-xs uppercase tracking-[0.3em] border-b border-white/30 pb-1 hover:border-white transition-colors"
+                >
+                  Start another project
+                </button>
+              </div>
             </motion.div>
           ) : (
             <form
@@ -234,7 +247,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
               aria-busy={isLoading}
             >
               <h2 id="contact-form-title" className="sr-only">
-                Contact form
+                Project brief form
               </h2>
 
               <div className="space-y-2">
@@ -332,6 +345,22 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
               </div>
 
               <div className="space-y-2">
+                <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={timelineId}>
+                  Timeline
+                </label>
+                <select
+                  id={timelineId}
+                  value={formData.timeline}
+                  onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                  className="w-full bg-neutral-900/50 border border-white/15 rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all appearance-none"
+                >
+                  <option>ASAP (this month)</option>
+                  <option>Next 1-3 months</option>
+                  <option>Just exploring</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
                 <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={messageId}>
                   Message
                 </label>
@@ -349,7 +378,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
                   className={`w-full bg-neutral-900/50 border rounded-none p-4 text-white focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400/30 transition-all placeholder:text-white/30 ${
                     fieldErrors.message ? "border-red-400/60" : "border-white/15"
                   }`}
-                  placeholder="TELL US WHAT YOU NEED, YOUR GOAL, AND YOUR TIMELINE..."
+                  placeholder="Tell us about your brand, goals, launch date and share any links (website, Instagram, refs)."
                 />
                 {fieldErrors.message && (
                   <p id={`${messageId}-error`} className="text-red-400 text-sm">
@@ -363,7 +392,7 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
                 disabled={isLoading}
                 className="w-full rounded-none bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black font-bold uppercase tracking-[0.25em] py-5 hover:opacity-90 transition-all shadow-[0_10px_40px_rgba(0,0,0,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {isLoading ? "Sending..." : "Send Message"}
+                {isLoading ? "Sending..." : "Start Project"}
               </button>
 
               {error && (

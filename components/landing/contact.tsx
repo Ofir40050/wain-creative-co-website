@@ -82,7 +82,7 @@ export function Contact() {
           {/* CTA */}
           <div className="flex justify-center">
             <button className="btn-primary w-full, group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full sm:w-auto">
-              Send Message
+              Start a Project
             </button>
           </div>
 

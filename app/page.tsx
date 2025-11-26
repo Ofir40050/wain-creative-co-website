@@ -7,6 +7,7 @@ import { Portfolio } from "@/components/landing/portfolio"
 import { About } from "@/components/landing/about"
 import { Contact } from "@/components/landing/contact"
 import { Brands } from "@/components/landing/brands"
+import { Button } from "@/components/shared/button"
 
 const SITE_URL = "https://www.waincreative.com"
 const PAGE_URL = SITE_URL
@@ -157,29 +158,28 @@ export default function Home() {
           </h2>
 
           <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8 md:mb-10 animate-[fadeInUp_0.6s_ease-out_0.3s_both]">
-            A complete digital launch built for brands and creators who want to go live fast
-            with a premium website and a 30‑day content rollout. One seamless package,
-            engineered for momentum.
+            Launch your brand in 30 days with a premium website and a full content system.
           </p>
 
-          <div className="text-white/70 text-sm md:text-base max-w-md mx-auto mb-8 md:mb-10 space-y-2 text-left animate-[fadeInUp_0.6s_ease-out_0.4s_both]">
-            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>Custom Website (4-6 pages)</span></div>
-            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>30-Day Content Rollout</span></div>
-            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>8–12 Short-Form Videos Included</span></div>
-            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>Brand Cohesion Across Web + Social</span></div>
+          <div className="text-white/90 text-lg md:text-xl font-semibold mb-10 md:mb-12 animate-[fadeInUp_0.6s_ease-out_0.35s_both]">
+            Starting at $1,800
+          </div>
+
+          <div className="text-white/70 text-sm md:text-base max-w-md mx-auto mb-10 md:mb-12 space-y-3 text-left animate-[fadeInUp_0.6s_ease-out_0.4s_both]">
+            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>Custom 4–6 page website built to convert</span></div>
+            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>30 day content system for launch</span></div>
+            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>8–12 short-form videos and assets</span></div>
+            <div className="flex items-center gap-3"><span className="text-pink-400 text-lg">▶</span><span>Brand aligned art direction and creative</span></div>
           </div>
 
           <div className="text-white/50 text-xs md:text-sm italic mb-12 max-w-xl mx-auto leading-relaxed animate-[fadeInUp_0.6s_ease-out_0.5s_both]">
             “This package launched our brand fast and professionally. The website and content worked together perfectly.”
           </div>
 
-          <div className="flex justify-center">
-            <a
-              href="/services#digital-launch"
-                className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full max-w-xs sm:max-w-none sm:w-auto"
-            >
-              Learn More
-            </a>
+          <div className="flex justify-center mt-2 md:mt-3">
+            <Button href="/services#digital-launch" variant="primary" className="w-full max-w-xs sm:max-w-none sm:w-auto">
+              View Package
+            </Button>
           </div>
         </div>
       </section>

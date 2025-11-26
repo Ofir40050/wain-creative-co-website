@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { trackEvent, sendGtagEvent } from "@/lib/analytics"
+import { Button } from "@/components/shared/button"
 
 export function Nav() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -84,17 +85,17 @@ export function Nav() {
               )
             })}
 
-            <Link href="/contact" className="ml-2">
-              <button
-                onClick={() => {
-                  trackEvent("cta_click", { location: "nav_desktop_start_project" })
-                  sendGtagEvent("click_book_call", { page: window.location.pathname })
-                }}
-                className="group px-4 py-2 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto"
-              >
-                Start Project
-              </button>
-            </Link>
+            <Button
+              intent="start-project"
+              href="/contact"
+              variant="secondary"
+              size="sm"
+              onClick={() => {
+                trackEvent("cta_click", { location: "nav_desktop_start_project" })
+                sendGtagEvent("click_book_call", { page: window.location.pathname })
+              }}
+              className="ml-2 w-full sm:w-auto"
+            />
           </nav>
 
           {/* Mobile Hamburger */}
@@ -149,17 +150,16 @@ export function Nav() {
                 )
               })}
 
-              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                <button
-                  onClick={() => {
-                    trackEvent("cta_click", { location: "nav_mobile_start_project" })
-                    sendGtagEvent("click_book_call", { page: window.location.pathname })
-                  }}
-                  className="px-4 py-4 text-base font-bold uppercase tracking-[0.2em] rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black hover:opacity-95 transition-all"
-                >
-                  Start Project
-                </button>
-              </Link>
+              <Button
+                intent="start-project"
+                href="/contact"
+                onClick={() => {
+                  setIsMobileMenuOpen(false)
+                  trackEvent("cta_click", { location: "nav_mobile_start_project" })
+                  sendGtagEvent("click_book_call", { page: window.location.pathname })
+                }}
+                className="w-full"
+              />
             </nav>
           </motion.div>
         )}
