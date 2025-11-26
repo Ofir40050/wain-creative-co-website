@@ -53,7 +53,7 @@ export function About() {
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.3em] text-white/50">Why it works</p>
               <p>
-                We build digital ecosystems that look high-end and perform with purpose - websites, content, and social systems built as one machine.
+                We build digital ecosystems that look high-end and perform with purpose, websites, content, and social systems built as one machine.
               </p>
             </div>
 

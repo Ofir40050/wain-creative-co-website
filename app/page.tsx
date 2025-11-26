@@ -170,7 +170,7 @@ export default function Home() {
           </div>
 
           <div className="text-white/50 text-xs md:text-sm italic mb-12 max-w-xl mx-auto leading-relaxed animate-[fadeInUp_0.6s_ease-out_0.5s_both]">
-            “This package launched our brand fast and professionally. The website and content worked together perfectly.” — Client Name
+            “This package launched our brand fast and professionally. The website and content worked together perfectly.”
           </div>
 
           <div className="flex justify-center">

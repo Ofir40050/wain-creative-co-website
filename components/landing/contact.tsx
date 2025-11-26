@@ -21,7 +21,7 @@ export function Contact() {
         </h2>
 
         <p className="text-white/70 leading-relaxed text-sm md:text-lg max-w-2xl mx-auto">
-          Tell us what you're building—we’ll follow up with clarity, strategy, and next steps.
+          Tell us what you're building, we’ll follow up with clarity, strategy, and next steps.
         </p>
         <div className="h-px w-24 bg-white/10 mx-auto mt-6 md:mt-8"></div>
       </div>
