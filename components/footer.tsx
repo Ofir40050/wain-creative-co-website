@@ -72,14 +72,6 @@ export function Footer() {
           >
             <Linkedin className="w-5 h-5" />
           </a>
-
-          <TrackedLink
-            href="/contact"
-            event="click_book_call"
-            className="hidden md:inline-flex items-center bg-white text-black text-[10px] uppercase tracking-[0.3em] font-bold py-1.5 px-3 rounded-lg transition-all duration-300 hover:opacity-95 hover:-translate-y-[1px] hover:shadow-[0_8px_24px_rgba(255,255,255,0.12)] active:translate-y-0 active:opacity-90"
-          >
-            Start a project
-          </TrackedLink>
         </div>
       </div>
 

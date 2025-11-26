@@ -331,7 +331,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Anchor Menu */}
-      <nav className="sticky top-[72px] md:top-[80px] z-40 max-w-6xl mx-auto mb-14 md:mb-16">
+      <nav className="sticky top-[72px] md:top-[80px] z-40 max-w-6xl mx-auto mb-14 md:mb-16 hidden md:block">
         <div className="inline-flex flex-wrap gap-2 md:gap-3 bg-neutral-950/80 backdrop-blur-md border border-white/10 p-2 md:p-2.5">
           <a
             href="#web-design"
@@ -438,8 +438,8 @@ export default function ServicesPage() {
                       </p>
                     </div>
 
-                    <TrackedLink href="/contact" event="click_book_call" className="mt-8 block">
-                      <button className="w-full min-h-[56px] md:min-h-[60px] rounded-lg bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black py-4 px-6 font-bold uppercase tracking-[0.25em] transition-all duration-300 flex items-center justify-center gap-2 group hover:opacity-95 hover:-translate-y-[1px] hover:shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+                    <TrackedLink href="/contact" event="click_book_call" className="mt-8 block"> 
+                      <button className="w-full min-h-[56px] md:min-h-[60px] group relative px-8 py-4 rounded-lg tracking-widest text-sm bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black py-4 px-6 font-bold uppercase tracking-[0.25em] transition-all duration-300 flex items-center justify-center gap-2 group hover:opacity-95 hover:-translate-y-[1px] shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)]">
                         <span className="whitespace-pre-line text-center leading-tight">{service.cta}</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </button>

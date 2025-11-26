@@ -42,12 +42,12 @@ export function Services() {
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-8 animate-[fadeInUp_0.7s_ease-out]">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-16 md:mb-20 gap-8 animate-[fadeInUp_0.7s_ease-out]">
           <h2 className="text-4xl md:text-6xl font-extrabold uppercase tracking-tight leading-[0.9]">
             Our <span className="text-neutral-500">Services</span>
           </h2>
 
-          <p className="text-white/60 text-[11px] md:text-xs uppercase tracking-[0.3em] border-l border-white/15 pl-4 max-w-sm leading-relaxed">
+          <p className="text-white/60 text-[11px] md:text-xs uppercase tracking-[0.3em] md:border-l border-white/15 pl-0 md:pl-4 max-w-sm leading-relaxed">
             End-to-end creative and digital execution for brands that want to win online.
           </p>
         </div>

@@ -4,7 +4,6 @@ export type WorkProject = {
   title: string
   category: WorkCategory
   year: string
-  type: string
   slug: string
   url: string
   description: string
@@ -26,7 +25,6 @@ const workProjects: WorkProject[] = [
     title: "Wain Studio",
     category: "Websites",
     year: "2024",
-    type: "Full Website",
     slug: "wainstudio",
     url: "https://wainstudio.com/",
     description:
@@ -64,7 +62,6 @@ const workProjects: WorkProject[] = [
     title: "Shir Amosi",
     category: "Websites",
     year: "2025",
-    type: "Full Website",
     slug: "shiramosi",
     url: "https://www.shiramosi.com/",
     description:
@@ -99,7 +96,6 @@ const workProjects: WorkProject[] = [
     title: "Silverline Records",
     category: "Websites",
     year: "2025",
-    type: "Full Website",
     slug: "silverlinerecords",
     url: "https://silverlinerecords.website/",
     description:
@@ -136,7 +132,6 @@ const workProjects: WorkProject[] = [
     title: "Soundfield",
     category: "Websites",
     year: "2025",
-    type: "Full Website",
     slug: "soundfield",
     url: "https://soundfield.website/",
     description:

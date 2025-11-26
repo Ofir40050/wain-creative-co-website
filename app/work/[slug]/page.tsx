@@ -159,7 +159,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 mb-16 lg:mb-20 items-start">
           {/* Left: Title + Meta */}
           <div className="space-y-7 lg:space-y-8">
-            <div className="lg:static sticky top-20 z-20 backdrop-blur-md bg-black/30 py-3 px-2 -mx-2 rounded-xl border border-white/10 lg:border-0 lg:bg-transparent lg:backdrop-blur-0 lg:py-0 lg:px-0 lg:mx-0">
+            <div className="w-full">
               <Link
                 href="/work"
                 className="inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/55 hover:text-white transition-colors"
@@ -177,18 +177,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               {/* Meta chips */}
               <div className="flex flex-wrap items-center gap-2 pt-1">
                 {project.category && (
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/70 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg">
+                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/70 px-3 py-1.5 rounded-lg">
                     {project.category}
                   </span>
                 )}
                 {project.year && (
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/60 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg">
+                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/60 px-3 py-1.5 rounded-lg">
                     {project.year}
-                  </span>
-                )}
-                {project.type && (
-                  <span className="text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-white/60 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg">
-                    {project.type}
                   </span>
                 )}
               </div>
@@ -203,19 +198,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   >
                     Visit Live Site
                   </a>
-                  <a
-                    href="/services"
-                    className="inline-flex w-fit items-center gap-2 border border-white/20 px-6 py-3 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-white/90 hover:border-white hover:bg-white/5 transition-colors rounded-lg"
-                  >
-                    View Services
-                  </a>
-                  <TrackedLink
-                    href="/contact"
-                    event="click_book_call"
-                    className="inline-flex w-fit items-center gap-2 border border-white/20 px-6 py-3 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] text-white/90 hover:border-white hover:bg-white/5 transition-colors rounded-lg"
-                  >
-                    Start a Project
-                  </TrackedLink>
                 </div>
               )}
             </div>
@@ -254,7 +236,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 {project.services.map((service) => (
                   <li
                     key={service}
-                    className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 bg-white/5 border border-white/10 px-3 py-2 rounded-lg"
+                    className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-white/80 bg-white/0 px-3 py-2"
                   >
                     {service}
                   </li>
@@ -292,24 +274,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             className="mt-20 pt-16 border-t border-white/10 grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 items-center group"
             aria-label={`View next project: ${nextProject.title}`}
           >
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-white/10 bg-neutral-950">
-              {nextProject.images?.[0] && (
-                <Image
-                  src={nextProject.images[0]}
-                  alt={`${nextProject.title} thumbnail`}
-                  fill
-                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            </div>
-
             <div className="space-y-2">
               <p className="text-white/50 text-[10px] md:text-xs uppercase tracking-[0.35em]">Next Project</p>
               <div className="text-2xl md:text-3xl font-bold uppercase text-white group-hover:text-pink-500 transition-colors">
                 {nextProject.title}
               </div>
-              <p className="text-xs md:text-sm text-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <p className="text-xs md:text-sm text-white/70 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
                 View Next Case
               </p>
             </div>

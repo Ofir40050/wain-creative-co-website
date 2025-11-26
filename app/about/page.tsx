@@ -146,18 +146,13 @@ export default function AboutPage() {
           <div className="w-full h-px bg-white/15" />
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 sm:items-center mt-10">
-          <Link href="#cta" className="inline-flex">
-            <button className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black px-7 py-3 md:px-8 md:py-4 font-bold uppercase tracking-[0.22em] rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all inline-flex items-center gap-3">
-              Start Project
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </Link>
+        <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-center justify-center mt-10">
           <TrackedLink
             href="/work"
             event="click_view_work"
-            className="inline-flex px-7 py-3 md:px-8 md:py-4 border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition-all rounded-lg backdrop-blur-sm uppercase tracking-[0.22em] text-xs font-semibold"
+            className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto"
           >
+            <span className="pointer-events-none absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-white/5 via-transparent to-white/5" />
             View Work
           </TrackedLink>
         </div>
@@ -427,18 +422,21 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="lg:w-1/2 space-y-6">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {["Astra Labs", "Northwave", "Cedar House", "Studio W", "Nova Sound", "Beachline"].map((logo) => (
-                  <div key={logo} className="border border-white/10 rounded-lg px-4 py-3 bg-neutral-900/60 text-center text-sm uppercase tracking-[0.18em] text-white/70">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md mx-auto">
+                {["Acoustic Ba Salon", "Next Pro", "Noise Music Group", "Pazam Gram", "IDF Music", "Super Group"].map((logo) => (
+                  <div
+                    key={logo}
+                    className="border border-white/10 rounded-lg px-3 py-2 bg-neutral-900/60 text-center text-[11px] sm:text-sm uppercase tracking-[0.14em] text-white/70"
+                  >
                     {logo}
                   </div>
                 ))}
               </div>
-              <div className="p-5 border border-white/10 rounded-lg bg-white/[0.03]">
+              <div className="p-5 border border-white/10 rounded-lg bg-white/[0.03] max-w-md mx-auto">
                 <p className="text-white/80 leading-relaxed text-base">
                   “They rebuilt our launch system end-to-end in three weeks and doubled paid funnel performance. Clean, fast, premium.”
                 </p>
-                <p className="mt-3 text-xs uppercase tracking-[0.18em] text-white/60">CMO, Consumer brand</p>
+                <p className="mt-3 text-xs uppercase tracking-[0.18em] text-white/60">Pazam, Consumer brand</p>
               </div>
             </div>
           </div>
@@ -460,8 +458,7 @@ export default function AboutPage() {
 
           <a
             href="#cta"
-            className="text-xs uppercase tracking-[0.22em] px-7 py-3 bg-white/5 border border-white/15 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all rounded-lg backdrop-blur-sm w-fit"
-          >
+            className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto">
             Start a Project
           </a>
         </div>
@@ -522,9 +519,8 @@ export default function AboutPage() {
           </p>
 
           <TrackedLink href="/contact" event="click_book_call" className="relative z-10 inline-block">
-            <button className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black px-10 py-5 font-bold uppercase tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all inline-flex items-center gap-3">
+            <button className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full sm:w-auto">
               Start Project
-              <ArrowRight className="w-5 h-5" />
             </button>
           </TrackedLink>
         </div>

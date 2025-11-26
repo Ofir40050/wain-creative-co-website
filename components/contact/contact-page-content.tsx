@@ -179,12 +179,6 @@ export function ContactPageContent({ faqs }: ContactPageContentProps) {
                   </span>
                 </a>
 
-                <div className="text-white/40 inline-flex items-center gap-3 cursor-not-allowed">
-                  <span className="font-bold text-lg">Tk</span>
-                  <span className="text-sm uppercase tracking-widest">
-                    TikTok - coming soon
-                  </span>
-                </div>
               </div>
             </div>
 

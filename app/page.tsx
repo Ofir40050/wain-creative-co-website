@@ -138,16 +138,20 @@ export default function Home() {
       <div className="animate-[fadeInUp_0.7s_ease-out]">
         <Hero />
       </div>
-      <div className="mt-4 md:mt-10 animate-[fadeIn_0.9s_ease-out]">
+      <div className="animate-[fadeIn_0.9s_ease-out]">
         <Brands />
       </div>
       {/* Highlight Offer: Website + Social Launch Package */}
-      <section className="relative bg-[#111111] border-y border-white/10 py-14 md:py-20 px-6 md:px-10 lg:px-16 animate-[fadeIn_0.9s_ease-out]">
-        <div className="absolute inset-0 pointer-events-none flex justify-center">
+      <section className="relative py-20 md:py-12 px-0 md:px-0 lg:px-0 animate-[fadeIn_0.9s_ease-out]">
+        <div className="mt-14 md:mt-1 absolute top-6 left-0 right-0 z-20">
+          <div className="h-14 md:h-16 w-full bg-gradient-to-r from-amber-200/60 via-rose-300/60 to-cyan-200/60 flex items-center justify-center text-black font-semibold uppercase tracking-[0.32em] text-sm md:text-base">
+            Most Popular
+          </div>
+        </div>
+        <div className="mt-14 md:mt-14 absolute inset-0 pointer-events-none flex justify-center">
           <div className="w-[420px] h-[420px] md:w-[600px] md:h-[600px] bg-pink-500/10 blur-[140px] md:blur-[200px] rounded-full" />
         </div>
-        <div className="max-w-4xl mx-auto text-center leading-snug bg-black/20 border border-white/10 rounded-xl px-6 md:px-12 py-10 md:py-14 backdrop-blur-sm shadow-[0_0_40px_-10px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_60px_-10px_rgba(255,0,90,0.4)]">
-          <p className="inline-block mb-4 px-3 py-1 text-[10px] md:text-xs font-semibold tracking-wide uppercase bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black rounded-full animate-[fadeIn_0.6s_ease-out_0.1s_both]">Most Popular</p>
+        <div className="max-w-4xl mx-auto text-center leading-snug bg-black/20 border border-white/10 rounded-xl px-8 md:px-16 pt-20 pb-20 md:pt-24 md:pb-24 backdrop-blur-sm shadow-[0_0_40px_-10px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-[1.015] hover:shadow-[0_0_60px_-10px_rgba(255,0,90,0.4)] relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 md:mb-6 animate-[fadeInUp_0.6s_ease-out_0.2s_both]">
             Website + Social Launch Package
           </h2>
@@ -172,23 +176,23 @@ export default function Home() {
           <div className="flex justify-center">
             <a
               href="/services#digital-launch"
-              className="px-10 py-4 md:py-5 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black font-semibold uppercase tracking-wide rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] hover:opacity-95 transition-all animate-[fadeInUp_0.6s_ease-out_0.6s_both]"
+                className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-black text-sm uppercase font-bold tracking-widest rounded-lg shadow-[0_4px_20px_rgba(255,0,90,0.35)] hover:shadow-[0_4px_30px_rgba(255,0,90,0.55)] transition-all duration-300 w-full max-w-xs sm:max-w-none sm:w-auto"
             >
               Learn More
             </a>
           </div>
         </div>
       </section>
-      <div className="mt-12 md:mt-20">
+      <div className="animate-[fadeIn_0.9s_ease-out]">
         <Services />
       </div>
-      <div className="mt-12 md:mt-24">
+      <div className="animate-[fadeIn_0.9s_ease-out]">
         <Showreel />
       </div>
-      <div className="mt-16 md:mt-28">
+      <div className="animate-[fadeIn_0.9s_ease-out]">
         <Portfolio />
       </div>
-      <div className="mt-20 md:mt-32">
+      <div className="animate-[fadeIn_0.9s_ease-out]">
         <About />
       </div>
       <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-16 md:my-24" />

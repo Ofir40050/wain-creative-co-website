@@ -98,7 +98,7 @@ export function Portfolio() {
       </div>
 
       {/* Header */}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6 md:gap-8 animate-[fadeInUp_0.7s_ease-out] relative z-10">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-end text-center md:text-left mb-12 md:mb-20 gap-6 md:gap-8 animate-[fadeInUp_0.7s_ease-out] relative z-10">
         <div>
           <h2 className="font-extrabold uppercase tracking-tight leading-[0.9] text-4xl md:text-6xl lg:text-7xl mb-3">
             Latest{" "}
@@ -107,11 +107,11 @@ export function Portfolio() {
             </span>
           </h2>
 
-          <div className="h-px w-24 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 opacity-80" />
+          <div className="mx-auto md:mx-0 h-px w-24 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 opacity-80" />
         </div>
 
         <Link href="/work">
-          <button className="text-[10px] md:text-xs uppercase tracking-[0.35em] px-6 py-3 md:py-3.5 bg-white/5 border border-white/15 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all rounded-lg backdrop-blur-sm">
+          <button className="group px-8 py-4 bg-white/5 border border-white/15 text-white text-sm uppercase font-bold tracking-widest hover:bg-white/10 hover:border-white/30 transition-all duration-300 rounded-lg backdrop-blur-sm flex items-center justify-center gap-2 w-full sm:w-auto">
             View All Projects
           </button>
         </Link>

@@ -20,7 +20,7 @@ export function Brands() {
   return (
     <section className="relative py-16 md:py-20 px-6 md:px-10 lg:px-16 bg-[#0D0D0D] overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="mb-8 md:mb-10 text-center">
+        <div className="mb-8 md:mb-10 flex justify-center text-center">
           <h2 className="text-xs md:text-sm uppercase tracking-[0.32em] text-white/70 inline-block">
             Trusted by brands &amp; creators
           </h2>

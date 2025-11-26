@@ -20,7 +20,7 @@ export function About() {
           initial={reduceMotion ? false : { opacity: 0, x: -20 }}
           whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="space-y-10"
+          className="space-y-10 flex flex-col items-center md:items-start text-center md:text-left"
         >
           <p className="text-xs uppercase tracking-[0.3em] text-white/50">
             Who We Are
@@ -41,7 +41,7 @@ export function About() {
           </h2>
 
           {/* BODY */}
-          <div className="space-y-8 text-white/70 leading-relaxed text-base md:text-lg max-w-xl">
+          <div className="space-y-8 text-white/70 leading-relaxed text-base md:text-lg max-w-xl mx-auto md:mx-0">
             <div className="space-y-3">
               <p className="text-xs uppercase tracking-[0.3em] text-white/50">What we do</p>
               <p>
@@ -65,23 +65,25 @@ export function About() {
           </div>
 
           {/* STATS */}
-          <dl className="pt-10 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/10">
-            <div>
-              <dt className="sr-only">Projects delivered</dt>
-              <dd className="font-bold text-white text-4xl md:text-5xl mb-2">50+</dd>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Projects Delivered</p>
-            </div>
-            <div>
-              <dt className="sr-only">Client satisfaction</dt>
-              <dd className="font-bold text-white text-4xl md:text-5xl mb-2">100%</dd>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Client Satisfaction</p>
-            </div>
-            <div>
-              <dt className="sr-only">Location</dt>
-              <dd className="font-bold text-white text-4xl md:text-5xl mb-2">LA</dd>
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Based, Global Reach</p>
-            </div>
-          </dl>
+          <div className="pt-10 border-t border-white/10">
+            <dl className="flex items-start justify-between gap-4 md:gap-8 text-center md:text-left px-1">
+              <div className="flex-1">
+                <dt className="sr-only">Projects delivered</dt>
+                <dd className="font-bold text-white text-2xl md:text-4xl mb-2">50+</dd>
+                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">Projects Delivered</p>
+              </div>
+              <div className="flex-1">
+                <dt className="sr-only">Client satisfaction</dt>
+                <dd className="font-bold text-white text-2xl md:text-4xl mb-2">100%</dd>
+                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">Client Satisfaction</p>
+              </div>
+              <div className="flex-1">
+                <dt className="sr-only">Location</dt>
+                <dd className="font-bold text-white text-2xl md:text-4xl mb-2">LA</dd>
+                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">Based, Global Reach</p>
+              </div>
+            </dl>
+          </div>
         </motion.div>
 
         {/* RIGHT COLUMN */}

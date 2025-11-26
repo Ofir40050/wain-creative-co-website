@@ -10,7 +10,7 @@ export function Hero() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-28 md:pt-32 pb-20 bg-[#0D0D0D]">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-28 md:pt-32 pb-20 bg-[#0D0D0D]">
       <div className="absolute inset-0 pointer-events-none flex justify-center"><div className="w-[600px] h-[600px] md:w-[900px] md:h-[900px] bg-pink-500/10 blur-[180px] md:blur-[260px] rounded-full" /></div>
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,128,0.08)_0%,rgba(13,13,13,1)_70%)] pointer-events-none" />
@@ -25,7 +25,7 @@ export function Hero() {
           className="flex-shrink-0"
         >
           <Image
-            src="/lead-logo.png"
+            src="/Lead%20Logo%20-%20B%20N%20BACK.png"
             alt="Wain Creative Co"
             width={800}
             height={400}
@@ -35,7 +35,7 @@ export function Hero() {
         </motion.div>
 
         {/* Right Column: Text */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
+        <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl mt-6 md:mt-8">
           <motion.h1
           className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase leading-[0.9] mb-6 drop-shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
           initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
@@ -57,7 +57,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto mb-8 md:mb-10"
             initial={reduceMotion ? undefined : { opacity: 0, y: 20 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={reduceMotion ? undefined : { duration: 0.8, delay: 0.6 }}
@@ -92,15 +92,17 @@ export function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-[10px] md:text-xs uppercase tracking-[0.35em] z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-      >
-        Scroll
-        <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent" />
-      </motion.div>
+      <div className="w-full flex justify-center">
+        <motion.div
+          className="mt-8 md:mt-10 flex flex-col items-center gap-2 text-white/50 text-[10px] md:text-xs uppercase tracking-[0.35em] z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+        >
+          Scroll
+          <div className="w-[1px] h-12 bg-gradient-to-b from-white/50 to-transparent" />
+        </motion.div>
+      </div>
     </section>
   )
 }

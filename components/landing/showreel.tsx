@@ -86,7 +86,7 @@ export function Showreel() {
 
             <div className="group/play relative flex flex-col items-center gap-4 animate-[fadeInUp_0.6s_ease-out_0.4s_both]">
               <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 blur-xl opacity-40 group-hover/play:opacity-70 transition-opacity" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 blur-xl opacity-40 transition-opacity" />
                 <div className="w-24 h-24 md:w-28 md:h-28 rounded-full border border-white/30 bg-black/30 backdrop-blur-sm flex items-center justify-center transition-transform duration-700 group-hover/play:scale-110 group-hover/play:border-white">
                   <Play className="w-7 h-7 md:w-8 md:h-8 text-white fill-white" />
                 </div>
@@ -100,7 +100,7 @@ export function Showreel() {
               Tap to play full reel
             </p>
           </div>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/50 hidden md:block">
             Scroll to latest work ↓
           </div>
         </motion.div>
