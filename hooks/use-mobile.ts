@@ -1,30 +1,26 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
 const MOBILE_BREAKPOINT = 768
 
+const getMediaQuery = () => `(max-width: ${MOBILE_BREAKPOINT - 1}px)`
+
+const subscribe = (onStoreChange: () => void) => {
+  if (typeof window === "undefined") return () => undefined
+
+  const mediaQuery = window.matchMedia(getMediaQuery())
+  mediaQuery.addEventListener("change", onStoreChange)
+
+  return () => {
+    mediaQuery.removeEventListener("change", onStoreChange)
+  }
+}
+
+const getSnapshot = () => {
+  if (typeof window === "undefined") return false
+  return window.matchMedia(getMediaQuery()).matches
+}
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    if (typeof window === "undefined") return
-
-    const mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-
-    // Set initial value
-    setIsMobile(mediaQuery.matches)
-
-    const handleChange = (event: MediaQueryListEvent) => {
-      setIsMobile(event.matches)
-    }
-
-    // Listen for changes
-    mediaQuery.addEventListener("change", handleChange)
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange)
-    }
-  }, [])
-
-  return isMobile
+  return useSyncExternalStore(subscribe, getSnapshot, () => false)
 }

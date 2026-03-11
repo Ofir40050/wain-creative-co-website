@@ -128,16 +128,9 @@ export function WorkPageContent({ projects }: WorkPageContentProps) {
                     <h3 className="text-lg md:text-xl font-bold uppercase tracking-tight leading-tight">
                       {project.title}
                     </h3>
-                    <div className="flex items-end gap-2">
-                      {project.type && (
-                        <span className="text-xs uppercase tracking-[0.18em] text-white/60 bg-white/5 border border-white/10 px-2 py-1">
-                          {project.type}
-                        </span>
-                      )}
-                      <span className="text-xs text-white/65 tracking-[0.12em] uppercase">
-                        {project.year}
-                      </span>
-                    </div>
+                    <span className="text-xs text-white/65 tracking-[0.12em] uppercase">
+                      {project.year}
+                    </span>
                   </div>
 
                   <p className="text-xs uppercase tracking-[0.18em] font-semibold">

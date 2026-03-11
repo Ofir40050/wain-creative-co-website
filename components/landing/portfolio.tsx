@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import workProjects from "../../app/work/projects-data"
+import type { WorkProject } from "@/app/work/projects-data"
 
 const getImageSrc = (image: unknown) => {
   if (typeof image !== "string" || image.trim() === "") return "/placeholder.svg"
@@ -16,18 +17,15 @@ const featuredSlugs = ["wainstudio", "shiramosi", "silverlinerecords"]
 
 const projects = featuredSlugs
   .map((slug) => workProjects.find((p) => p.slug === slug))
-  .filter(Boolean)
+  .filter((project): project is WorkProject => Boolean(project))
 
-function ProjectCard({ project, index }: { project: any; index: number }) {
+function ProjectCard({ project, index }: { project: WorkProject; index: number }) {
   const images = (project.images || []).map(getImageSrc).slice(0, 3)
   const [hovered, setHovered] = useState(false)
   const [active, setActive] = useState(0)
 
   useEffect(() => {
-    if (!hovered || images.length <= 1) {
-      setActive(0)
-      return
-    }
+    if (!hovered || images.length <= 1) return
 
     const id = setInterval(() => {
       setActive((prev) => (prev + 1) % images.length)
@@ -45,18 +43,22 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: "easeOut" }}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={() => {
+        setHovered(false)
+        setActive(0)
+      }}
       className="group relative aspect-[4/5] overflow-hidden bg-neutral-900 rounded-xl border border-white/5 hover:border-white/15 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
     >
       <Link href={`/work/${project.slug}`} className="block w-full h-full">
         {/* Image stack with auto-hover preview */}
         <div className="absolute inset-0">
-          {(images.length ? images : [getImageSrc(project.images?.[0])]).map((src, i) => (
+          {(images.length ? images : [getImageSrc(project.images?.[0])]).map((src: string, i: number) => (
             <Image
               key={src + i}
               src={src}
               alt={project.title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`object-cover transition-opacity duration-700 ${i === active ? "opacity-100" : "opacity-0"}`}
               priority={i === 0}
             />

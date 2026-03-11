@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Script from "next/script"
+import { JsonLd } from "@/components/seo/json-ld"
 import { Hero } from "@/components/landing/hero"
 import { Services } from "@/components/landing/services"
 import { Showreel } from "@/components/landing/showreel"
@@ -8,11 +8,8 @@ import { About } from "@/components/landing/about"
 import { Contact } from "@/components/landing/contact"
 import { Brands } from "@/components/landing/brands"
 import { Button } from "@/components/shared/button"
-
-const SITE_URL = "https://www.waincreative.com"
-const PAGE_URL = SITE_URL
-const OG_IMAGE = `${SITE_URL}/og-image.jpg`
-const TW_IMAGE = `${SITE_URL}/social-banner.jpg`
+import { DEFAULT_OG_IMAGE_PATH, SITE_URL } from "@/lib/site-config"
+import { createBreadcrumbJsonLd, createMetadata, createWebPageJsonLd } from "@/lib/seo"
 
 const pageTitle = "Wain Creative Co - Premium Web Design & Content Studio in Los Angeles"
 const pageDescription =
@@ -28,114 +25,33 @@ const pageKeywords = [
   "digital brand strategy",
 ]
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: pageTitle,
   description: pageDescription,
   keywords: pageKeywords,
-  alternates: { canonical: PAGE_URL },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    url: PAGE_URL,
-    siteName: "Wain Creative Co",
-    title: pageTitle,
-    description: pageDescription,
-    images: [
-      {
-        url: OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: "Wain Creative Co - Digital Studio",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: pageTitle,
-    description: pageDescription,
-    images: [TW_IMAGE],
-  },
-}
+  canonicalPath: "/",
+  openGraphAlt: "Wain Creative Co - Digital Studio",
+})
 
 export default function Home() {
-  const webPageJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: pageTitle,
-    url: PAGE_URL,
+  const webPageJsonLd = createWebPageJsonLd({
+    title: pageTitle,
     description: pageDescription,
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Wain Creative Co",
-      url: SITE_URL,
-    },
-    primaryImageOfPage: {
-      "@type": "ImageObject",
-      url: OG_IMAGE,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Wain Creative Co",
-      url: SITE_URL,
-      logo: `${SITE_URL}/logo.svg`,
-    },
-  }
+    path: "/",
+    image: DEFAULT_OG_IMAGE_PATH,
+  })
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: PAGE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: `${SITE_URL}/services`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Work",
-        item: `${SITE_URL}/work`,
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Contact",
-        item: `${SITE_URL}/contact`,
-      },
-    ],
-  }
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: "Work", path: "/work" },
+    { name: "Contact", path: "/contact" },
+  ])
 
   return (
     <main className="min-h-screen bg-[#0D0D0D] text-white selection:bg-pink-500 selection:text-white overflow-x-hidden">
-      <Script
-        id="home-webpage-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
-      />
-      <Script
-        id="home-breadcrumbs-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd id="home-webpage-jsonld" data={webPageJsonLd} />
+      <JsonLd id="home-breadcrumbs-jsonld" data={breadcrumbJsonLd} />
       <div className="animate-[fadeInUp_0.7s_ease-out]">
         <Hero />
       </div>

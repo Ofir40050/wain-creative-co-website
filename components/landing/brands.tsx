@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image"
 
 const brands = [
@@ -14,7 +12,6 @@ const brands = [
 ]
 
 export function Brands() {
-  // משכפל את הרשימה כדי שהלופ יהיה חלק
   const marqueeItems = [...brands, ...brands]
 
   return (
@@ -27,7 +24,6 @@ export function Brands() {
         </div>
 
         <div className="relative overflow-hidden">
-          {/* גרדיאנטים בצדדים */}
           <div className="absolute inset-y-0 left-0 w-16 pointer-events-none bg-gradient-to-r from-[#0D0D0D] via-[#0D0D0D]/80 to-transparent" />
           <div className="absolute inset-y-0 right-0 w-16 pointer-events-none bg-gradient-to-l from-[#0D0D0D] via-[#0D0D0D]/80 to-transparent" />
 

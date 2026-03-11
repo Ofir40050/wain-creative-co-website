@@ -1,125 +1,80 @@
 import Image from "next/image"
 import Link from "next/link"
-import Script from "next/script"
+import type { Metadata } from "next"
 
+import { JsonLd } from "@/components/seo/json-ld"
 import { Button } from "@/components/shared/button"
 import { StudioStats } from "@/components/shared/studio-stats"
 import { TrackedLink } from "@/components/tracking/tracked-link"
+import {
+  ABSOLUTE_LOGO_URL,
+  BRAND_CITY,
+  BRAND_COUNTRY,
+  BRAND_REGION,
+  SITE_NAME,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "@/lib/site-config"
+import { createBreadcrumbJsonLd, createMetadata } from "@/lib/seo"
 
-export const metadata = {
-  title: "About | Wain Creative Co - LA Web Design & Content Studio",
+export const metadata: Metadata = createMetadata({
+  title: `About | ${SITE_NAME} - LA Web Design & Content Studio`,
   description:
-    "Learn about Wain Creative Co, a Los Angeles content and web design studio building premium websites, social systems, and brand visuals for modern brands and creators.",
-  alternates: {
-    canonical: "https://www.waincreative.com/about",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    url: "https://www.waincreative.com/about",
-    siteName: "Wain Creative Co",
-    title: "About Wain Creative Co",
-    description:
-      "Built in LA for brands that want to win. Premium web design, content, and social systems under one studio.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Wain Creative Co - Los Angeles Creative Studio",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Wain Creative Co",
-    description:
-      "Los Angeles content and web design studio for premium digital ecosystems.",
-    images: ["/og-image.jpg"],
-  },
-}
+    `Learn about ${SITE_NAME}, a Los Angeles content and web design studio building premium websites, social systems, and brand visuals for modern brands and creators.`,
+  canonicalPath: "/about",
+  openGraphTitle: `About ${SITE_NAME}`,
+  openGraphDescription:
+    "Built in LA for brands that want to win. Premium web design, content, and social systems under one studio.",
+  openGraphAlt: `${SITE_NAME} - Los Angeles Creative Studio`,
+  twitterTitle: `About ${SITE_NAME}`,
+  twitterDescription: "Los Angeles content and web design studio for premium digital ecosystems.",
+})
 
 export default function AboutPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://www.waincreative.com",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "About",
-        item: "https://www.waincreative.com/about",
-      },
-    ],
-  }
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+  ])
 
   return (
     <main className="relative min-h-screen pt-28 md:pt-32 pb-32 md:pb-28 px-6 md:px-10 lg:px-16 bg-[#0D0D0D] overflow-hidden">
-      <Script
+      <JsonLd
         id="about-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "AboutPage",
-            name: "About Wain Creative Co",
-            url: "https://www.waincreative.com/about",
-            description:
-              "Wain Creative Co is a Los Angeles content and web design studio built for modern attention. We create premium websites, high-performance social systems, and brand visuals that feel expensive and scale fast.",
-            isPartOf: {
-              "@type": "WebSite",
-              name: "Wain Creative Co",
-              url: "https://www.waincreative.com",
+        data={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: `About ${SITE_NAME}`,
+          url: `${SITE_URL}/about`,
+          description:
+            `${SITE_NAME} is a Los Angeles content and web design studio built for modern attention. We create premium websites, high-performance social systems, and brand visuals that feel expensive and scale fast.`,
+          isPartOf: {
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: SITE_URL,
+          },
+          about: {
+            "@type": "Organization",
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: ABSOLUTE_LOGO_URL,
+            sameAs: SOCIAL_LINKS,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: BRAND_CITY,
+              addressRegion: BRAND_REGION,
+              addressCountry: BRAND_COUNTRY,
             },
-            about: {
-              "@type": "Organization",
-              name: "Wain Creative Co",
-              url: "https://www.waincreative.com",
-              logo: "https://www.waincreative.com/logo.svg",
-              sameAs: [
-                "https://www.instagram.com/waincreativeco/",
-                "https://www.linkedin.com/in/wainmusic/",
-              ],
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Los Angeles",
-                addressRegion: "CA",
-                addressCountry: "US",
-              },
-              contactPoint: {
-                "@type": "ContactPoint",
-                contactType: "business inquiries",
-                email: "hello@waincreative.com",
-                telephone: "+1-213-589-5458",
-                areaServed: "US",
-              },
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "business inquiries",
+              email: "hello@waincreative.com",
+              telephone: "+1-213-589-5458",
+              areaServed: "US",
             },
-          }),
+          },
         }}
       />
-      <Script
-        id="about-breadcrumbs-jsonld"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd id="about-breadcrumbs-jsonld" data={breadcrumbJsonLd} />
       {/* Ambient background glow */}
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,120,0,0.10),rgba(255,0,128,0.06),transparent_70%)] blur-[120px]" />
 

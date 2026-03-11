@@ -1,7 +1,10 @@
 import { Check, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import type { Metadata } from "next"
+import { JsonLd } from "@/components/seo/json-ld"
 import { TrackedLink } from "@/components/tracking/tracked-link"
+import { ABSOLUTE_LOGO_URL, BRAND_CITY, BRAND_REGION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site-config"
+import { createBreadcrumbJsonLd, createMetadata } from "@/lib/seo"
 
 const services = [
   {
@@ -140,14 +143,11 @@ const services = [
   },
 ] as const
 
-const SITE_URL = "https://www.waincreative.com"
 const PAGE_URL = `${SITE_URL}/services`
-const OG_IMAGE = `${SITE_URL}/og-image.jpg`
-const TW_IMAGE = `${SITE_URL}/social-banner.jpg`
 
-const pageTitle = "Services | Wain Creative Co – LA Web Design, Social Media & Content Studio"
+const pageTitle = `Services | ${SITE_NAME} – LA Web Design, Social Media & Content Studio`
 const pageDescription =
-  "Explore Wain Creative Co services: premium web design & development, social media management, content production, video editing, and creator launch systems built in Los Angeles."
+  `Explore ${SITE_NAME} services: premium web design & development, social media management, content production, video editing, and creator launch systems built in Los Angeles.`
 const pageKeywords = [
   "Wain Creative Co",
   "Los Angeles creative agency",
@@ -161,46 +161,13 @@ const pageKeywords = [
   "digital studio",
 ].join(", ")
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: pageTitle,
   description: pageDescription,
   keywords: pageKeywords,
-  alternates: {
-    canonical: PAGE_URL,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    url: PAGE_URL,
-    siteName: "Wain Creative Co",
-    title: pageTitle,
-    description: pageDescription,
-    images: [
-      {
-        url: OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: "Wain Creative Co Services",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: pageTitle,
-    description: pageDescription,
-    images: [TW_IMAGE],
-  },
-}
+  canonicalPath: "/services",
+  openGraphAlt: `${SITE_NAME} Services`,
+})
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -210,13 +177,10 @@ const jsonLd = {
   description: pageDescription,
   publisher: {
     "@type": "Organization",
-    name: "Wain Creative Co",
+    name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.svg`,
-    sameAs: [
-      "https://www.instagram.com/waincreativeco/",
-      "https://www.linkedin.com/in/wainmusic/",
-    ],
+    logo: ABSOLUTE_LOGO_URL,
+    sameAs: SOCIAL_LINKS,
   },
   mainEntity: {
     "@type": "ItemList",
@@ -231,10 +195,10 @@ const jsonLd = {
         name: s.title,
         description: s.description,
         serviceType: s.title,
-        areaServed: "Los Angeles, CA",
+        areaServed: `${BRAND_CITY}, ${BRAND_REGION}`,
         provider: {
           "@type": "Organization",
-          name: "Wain Creative Co",
+          name: SITE_NAME,
           url: SITE_URL,
         },
       },
@@ -243,24 +207,10 @@ const jsonLd = {
 }
 
 export default function ServicesPage() {
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: PAGE_URL,
-      },
-    ],
-  }
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+  ])
 
   const servicesJsonLd = {
     "@context": "https://schema.org",
@@ -275,10 +225,10 @@ export default function ServicesPage() {
           name: s.title,
           description: s.description,
           serviceType: s.title,
-          areaServed: "Los Angeles, CA",
+          areaServed: `${BRAND_CITY}, ${BRAND_REGION}`,
           provider: {
             "@type": "Organization",
-            name: "Wain Creative Co",
+            name: SITE_NAME,
             url: SITE_URL,
           },
           offers: {
@@ -295,18 +245,9 @@ export default function ServicesPage() {
 
   return (
     <main className="relative min-h-screen pt-28 md:pt-32 pb-24 md:pb-28 px-6 md:px-10 lg:px-16 bg-[#0D0D0D] overflow-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
-      />
+      <JsonLd id="services-page-jsonld" data={jsonLd} />
+      <JsonLd id="services-breadcrumbs-jsonld" data={breadcrumbJsonLd} />
+      <JsonLd id="services-list-jsonld" data={servicesJsonLd} />
       <div className="pointer-events-none absolute -top-44 left-1/2 h-[560px] w-[560px] -translate-x-1/2 rounded-full bg-gradient-to-br from-purple-600/25 via-pink-500/15 to-orange-500/10 blur-[130px]" />
       <div className="pointer-events-none absolute top-1/3 right-[-140px] h-[460px] w-[460px] rounded-full bg-gradient-to-br from-orange-500/18 via-pink-500/12 to-purple-600/22 blur-[120px]" />
 

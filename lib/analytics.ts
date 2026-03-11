@@ -1,4 +1,13 @@
-export const trackEvent = (eventName: string, params: Record<string, any> = {}) => {
+type AnalyticsParams = Record<string, string | number | boolean | null | undefined>
+
+declare global {
+  interface Window {
+    clarity?: (command: "event", eventName: string, params?: AnalyticsParams) => void
+    gtag?: (command: "event", eventName: string, params?: AnalyticsParams) => void
+  }
+}
+
+export const trackEvent = (eventName: string, params: AnalyticsParams = {}) => {
   if (typeof window === "undefined") return
 
   if (typeof window.gtag === "function") {
@@ -10,9 +19,9 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
   }
 }
 
-export const sendGtagEvent = (eventName: string, params: Record<string, any> = {}) => {
+export const sendGtagEvent = (eventName: string, params: AnalyticsParams = {}) => {
   if (typeof window === "undefined") return
-  const gtag = (window as any).gtag
+  const { gtag } = window
   if (typeof gtag === "function") {
     gtag("event", eventName, params)
   }

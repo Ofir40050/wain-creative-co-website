@@ -3,10 +3,26 @@ import type { Metadata, Viewport } from "next"
 import Script from "next/script"
 import { Geist, Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { JsonLd } from "@/components/seo/json-ld"
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { Footer } from "@/components/footer"
 import { Nav } from "@/components/nav"
+import {
+  ABSOLUTE_OG_IMAGE_URL,
+  BRAND_PHONE,
+  DEFAULT_OG_IMAGE_PATH,
+  LOGO_PATH,
+  SITE_NAME,
+  SITE_URL,
+  SITE_URL_OBJECT,
+} from "@/lib/site-config"
+import {
+  siteAggregateRatingJsonLd,
+  siteOrganizationJsonLd,
+  siteProfessionalServiceJsonLd,
+  siteWebsiteJsonLd,
+} from "@/lib/seo"
 import PWARegister from "@/components/pwa-register"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -22,15 +38,15 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.waincreative.com"),
+  metadataBase: SITE_URL_OBJECT,
   title: {
-    default: "Wain Creative Co — LA Web Design & Content Studio",
-    template: "%s - Wain Creative Co",
+    default: `${SITE_NAME} — LA Web Design & Content Studio`,
+    template: `%s - ${SITE_NAME}`,
   },
   description:
-    "Premium web design, content systems and brand experiences built in Los Angeles. Wain Creative Co helps modern brands grow online.",
+    `Premium web design, content systems and brand experiences built in Los Angeles. ${SITE_NAME} helps modern brands grow online.`,
   keywords: [
-    "Wain Creative Co",
+    SITE_NAME,
     "web design Los Angeles",
     "Los Angeles web developer",
     "creative agency LA",
@@ -41,10 +57,10 @@ export const metadata: Metadata = {
     "brand identity studio",
     "digital agency for creators",
   ],
-  applicationName: "Wain Creative Co",
-  authors: [{ name: "Wain Creative Co" }],
-  creator: "Wain Creative Co",
-  publisher: "Wain Creative Co",
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   category: "Creative Agency",
   referrer: "origin-when-cross-origin",
   formatDetection: {
@@ -64,17 +80,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Wain Creative Co - Premium Web & Content Studio",
+    title: `${SITE_NAME} - Premium Web & Content Studio`,
     description:
-      "Premium websites, content engines, and digital brand systems built in Los Angeles for creators and modern businesses.",
-    url: "https://www.waincreative.com",
-    siteName: "Wain Creative Co",
+      `Premium websites, content engines, and digital brand systems built in Los Angeles for creators and modern businesses.`,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     images: [
       {
-        url: "/og-image.jpg",
+        url: DEFAULT_OG_IMAGE_PATH,
         width: 1200,
         height: 630,
-        alt: "Wain Creative Co - Digital Studio",
+        alt: `${SITE_NAME} - Digital Studio`,
       },
     ],
     locale: "en_US",
@@ -82,9 +98,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wain Creative Co",
+    title: SITE_NAME,
     description: "Premium web design and content studio based in Los Angeles.",
-    images: ["/og-image.jpg"],
+    images: [DEFAULT_OG_IMAGE_PATH],
   },
   verification: {
     google: "",
@@ -92,7 +108,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    title: "Wain Creative Co",
+    title: SITE_NAME,
     statusBarStyle: "black-translucent",
   },
   icons: {
@@ -116,7 +132,7 @@ export const metadata: Metadata = {
         type: "image/png",
       },
       {
-        url: "/logo.svg",
+        url: LOGO_PATH,
         type: "image/svg+xml",
       },
     ],
@@ -125,7 +141,7 @@ export const metadata: Metadata = {
     other: [
       {
         rel: "mask-icon",
-        url: "/logo.svg",
+        url: LOGO_PATH,
         color: "#0D0D0D",
       },
     ],
@@ -140,23 +156,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        {/* Performance: network hints */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-
         {/* Performance: critical asset preloads */}
         <link rel="preload" as="image" href="/website-logo.png" fetchPriority="high" />
-        <link rel="preload" as="image" href="/og-image.jpg" />
+        <link rel="preload" as="image" href={DEFAULT_OG_IMAGE_PATH} />
         <link rel="preload" as="image" href="/social-banner.jpg" />
-        <link rel="preload" as="image" href="/logo.svg" type="image/svg+xml" />
+        <link rel="preload" as="image" href={LOGO_PATH} type="image/svg+xml" />
 
         {/* PWA / mobile */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Wain Creative Co" />
+        <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body
@@ -193,109 +203,10 @@ export default function RootLayout({
         />
         <PWARegister />
         <Nav />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Wain Creative Co",
-              url: "https://www.waincreative.com",
-              logo: "https://www.waincreative.com/logo.svg",
-              description:
-                "A premium Los Angeles creative studio specializing in high-end web design, content production, social media systems, and digital brand strategy.",
-              telephone: "+1-213-589-5458",
-              sameAs: [
-                "https://www.instagram.com/waincreativeco/",
-                "https://www.linkedin.com/in/wainmusic/",
-              ],
-              founder: {
-                "@type": "Person",
-                name: "Ofir Wainboim",
-                jobTitle: "Creative Director & Lead Developer",
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Los Angeles",
-                addressRegion: "CA",
-                addressCountry: "US",
-              },
-            }),
-          }}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              url: "https://www.waincreative.com",
-              name: "Wain Creative Co",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://www.waincreative.com/?s={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              name: "Wain Creative Co",
-              url: "https://www.waincreative.com",
-              logo: "https://www.waincreative.com/logo.svg",
-              image: "https://www.waincreative.com/og-image.jpg",
-              areaServed: {
-                "@type": "City",
-                name: "Los Angeles",
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Los Angeles",
-                addressRegion: "CA",
-                addressCountry: "US",
-              },
-              telephone: "+1-213-589-5458",
-              sameAs: [
-                "https://www.instagram.com/waincreativeco/",
-                "https://www.linkedin.com/in/wainmusic/",
-              ],
-              serviceType: [
-                "Web Design",
-                "Web Development",
-                "Social Media Management",
-                "Content Strategy",
-                "Video Editing",
-                "Creator Services",
-              ],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Wain Creative Co",
-              url: "https://www.waincreative.com",
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "5.0",
-                reviewCount: "32",
-              },
-              sameAs: [
-                "https://www.instagram.com/waincreativeco/",
-                "https://www.linkedin.com/in/wainmusic/",
-              ],
-            }),
-          }}
-        />
+        <JsonLd id="site-organization-jsonld" data={siteOrganizationJsonLd} />
+        <JsonLd id="site-website-jsonld" data={siteWebsiteJsonLd} />
+        <JsonLd id="site-professional-service-jsonld" data={siteProfessionalServiceJsonLd} />
+        <JsonLd id="site-aggregate-rating-jsonld" data={siteAggregateRatingJsonLd} />
         {children}
         <Footer />
         <Analytics />

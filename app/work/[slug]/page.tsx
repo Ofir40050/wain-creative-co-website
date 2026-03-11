@@ -3,11 +3,12 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import workProjects from "@/app/work/projects-data"
 import type { Metadata } from "next"
+import { JsonLd } from "@/components/seo/json-ld"
 import { TrackedLink } from "@/components/tracking/tracked-link"
+import { SITE_NAME, SITE_URL } from "@/lib/site-config"
+import { createBreadcrumbJsonLd, createMetadata } from "@/lib/seo"
 
 type Project = (typeof workProjects)[number]
-
-const SITE_URL = "https://www.waincreative.com"
 
 const getProjectData = (slug: string): Project | null => {
   return workProjects.find((p) => p.slug === slug) ?? null
@@ -34,36 +35,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const url = `${SITE_URL}/work/${project.slug}`
   const images = (project.images ?? []).filter(Boolean).map((img) => `${SITE_URL}${img}`)
 
-  return {
+  return createMetadata({
     title: baseTitle,
     description: baseDescription,
-    alternates: { canonical: url },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
-    openGraph: {
-      type: "website",
-      siteName: "Wain Creative Co",
-      title: baseTitle,
-      description: baseDescription,
-      url,
-      images: images.length ? images : [`${SITE_URL}/og-image.jpg`],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: baseTitle,
-      description: baseDescription,
-      images: images.length ? images : [`${SITE_URL}/social-banner.jpg`],
-    },
-  }
+    keywords,
+    canonicalPath: `/work/${project.slug}`,
+    openGraphTitle: baseTitle,
+    openGraphDescription: baseDescription,
+    openGraphImage: images[0] ?? "/og-image.jpg",
+    openGraphAlt: project.seo?.ogAlt ?? `${project.title} case study`,
+    twitterTitle: baseTitle,
+    twitterDescription: baseDescription,
+    twitterImage: images[0] ?? "/social-banner.jpg",
+  })
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -101,9 +85,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     datePublished: project.year ? `${project.year}-01-01` : undefined,
     creator: {
       "@type": "Organization",
-      name: "Wain Creative Co",
-      url: SITE_URL,
-      logo: `${SITE_URL}/logo.svg`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo.svg`,
       sameAs: [
         "https://www.instagram.com/waincreativeco/",
         "https://www.linkedin.com/in/wainmusic/",
@@ -118,41 +102,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     },
   }
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Work",
-        item: `${SITE_URL}/work`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: project.title,
-        item: pageUrl,
-      },
-    ],
-  }
+  const breadcrumbJsonLd = createBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Work", path: "/work" },
+    { name: project.title, path: `/work/${project.slug}` },
+  ])
 
   return (
     <main className="relative min-h-screen pt-28 md:pt-32 pb-24 px-6 md:px-10 lg:px-16 bg-[#0D0D0D] overflow-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd id={`project-${project.slug}-jsonld`} data={jsonLd} />
+      <JsonLd id={`project-${project.slug}-breadcrumbs-jsonld`} data={breadcrumbJsonLd} />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-br from-purple-600/25 via-pink-500/15 to-orange-500/10 blur-[120px]" />
       <div className="pointer-events-none absolute top-1/3 right-[-120px] h-[420px] w-[420px] rounded-full bg-gradient-to-br from-orange-500/20 via-pink-500/10 to-purple-600/20 blur-[110px]" />
       <div className="max-w-7xl mx-auto">
