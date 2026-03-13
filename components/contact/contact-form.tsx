@@ -44,6 +44,7 @@ export function ContactForm({
   const nameId = `${titleId}-name`
   const emailId = `${titleId}-email`
   const projectTypeId = `${titleId}-project-type`
+  const referralSourceId = `${titleId}-referral-source`
   const budgetId = `${titleId}-budget`
   const timelineId = `${titleId}-timeline`
   const messageId = `${titleId}-message`
@@ -121,7 +122,7 @@ export function ContactForm({
           Got it. Your project is in.
         </h3>
         <p className="max-w-md text-base leading-relaxed text-white/70 md:text-lg">
-          We’ll review your details and get back to you within 24-48 hours with next steps.
+          We’ll review your details and get back to you within 24 hours with next steps.
         </p>
         <div className="flex flex-col items-center gap-3">
           <Link
@@ -146,7 +147,7 @@ export function ContactForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cn("space-y-7", className)}
+      className={cn("space-y-5", className)}
       noValidate
       aria-labelledby={titleId}
       aria-busy={isLoading}
@@ -167,9 +168,9 @@ export function ContactForm({
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={nameId}>
+          <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={nameId}>
             Name
           </label>
           <input
@@ -182,10 +183,10 @@ export function ContactForm({
             aria-invalid={Boolean(fieldErrors.name)}
             aria-describedby={fieldErrors.name ? `${nameId}-error` : undefined}
             className={cn(
-              "w-full border bg-neutral-900/50 p-4 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+              "w-full border bg-neutral-900/50 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
               fieldErrors.name ? "border-red-400/60" : "border-white/15",
             )}
-            placeholder="JOHN DOE"
+            placeholder="John Doe"
           />
           {fieldErrors.name ? (
             <p id={`${nameId}-error`} className="text-sm text-red-400">
@@ -195,7 +196,7 @@ export function ContactForm({
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={emailId}>
+          <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={emailId}>
             Email
           </label>
           <input
@@ -208,10 +209,10 @@ export function ContactForm({
             aria-invalid={Boolean(fieldErrors.email)}
             aria-describedby={fieldErrors.email ? `${emailId}-error` : undefined}
             className={cn(
-              "w-full border bg-neutral-900/50 p-4 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+              "w-full border bg-neutral-900/50 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
               fieldErrors.email ? "border-red-400/60" : "border-white/15",
             )}
-            placeholder="HELLO@EXAMPLE.COM"
+            placeholder="hello@example.com"
           />
           {fieldErrors.email ? (
             <p id={`${emailId}-error`} className="text-sm text-red-400">
@@ -222,7 +223,7 @@ export function ContactForm({
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={projectTypeId}>
+        <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={projectTypeId}>
           Project Type
         </label>
         <select
@@ -233,7 +234,7 @@ export function ContactForm({
           aria-invalid={Boolean(fieldErrors.projectType)}
           aria-describedby={fieldErrors.projectType ? `${projectTypeId}-error` : undefined}
           className={cn(
-            "w-full appearance-none border bg-neutral-900/50 p-4 text-white transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+            "w-full appearance-none border bg-neutral-900/50 px-4 py-3 text-white transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
             fieldErrors.projectType ? "border-red-400/60" : "border-white/15",
           )}
         >
@@ -248,10 +249,35 @@ export function ContactForm({
         ) : null}
       </div>
 
+      <div className="space-y-2">
+        <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={referralSourceId}>
+          Referral Source
+        </label>
+        <input
+          id={referralSourceId}
+          required
+          type="text"
+          value={formData.referralSource}
+          onChange={(event) => updateField("referralSource", event.target.value)}
+          aria-invalid={Boolean(fieldErrors.referralSource)}
+          aria-describedby={fieldErrors.referralSource ? `${referralSourceId}-error` : undefined}
+          className={cn(
+            "w-full border bg-neutral-900/50 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+            fieldErrors.referralSource ? "border-red-400/60" : "border-white/15",
+          )}
+          placeholder="Referral, Instagram, Google..."
+        />
+        {fieldErrors.referralSource ? (
+          <p id={`${referralSourceId}-error`} className="text-sm text-red-400">
+            {fieldErrors.referralSource}
+          </p>
+        ) : null}
+      </div>
+
       {layout === "full" ? (
-        <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="space-y-2">
-            <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={budgetId}>
+            <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={budgetId}>
               Budget Range
             </label>
             <select
@@ -261,7 +287,7 @@ export function ContactForm({
               aria-invalid={Boolean(fieldErrors.budgetRange)}
               aria-describedby={fieldErrors.budgetRange ? `${budgetId}-error` : undefined}
               className={cn(
-                "w-full appearance-none border bg-neutral-900/50 p-4 text-white transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+                "w-full appearance-none border bg-neutral-900/50 px-4 py-3 text-white transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
                 fieldErrors.budgetRange ? "border-red-400/60" : "border-white/15",
               )}
             >
@@ -277,7 +303,7 @@ export function ContactForm({
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={timelineId}>
+            <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={timelineId}>
               Timeline
             </label>
             <select
@@ -287,7 +313,7 @@ export function ContactForm({
               aria-invalid={Boolean(fieldErrors.timeline)}
               aria-describedby={fieldErrors.timeline ? `${timelineId}-error` : undefined}
               className={cn(
-                "w-full appearance-none border bg-neutral-900/50 p-4 text-white transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+                "w-full appearance-none border bg-neutral-900/50 px-4 py-3 text-white transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
                 fieldErrors.timeline ? "border-red-400/60" : "border-white/15",
               )}
             >
@@ -305,22 +331,22 @@ export function ContactForm({
       ) : null}
 
       <div className="space-y-2">
-        <label className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={messageId}>
-          Message
+        <label className="text-xs uppercase tracking-[0.18em] text-white/60 leading-[1.45]" htmlFor={messageId}>
+          Brand Goals & Challenges
         </label>
         <textarea
           id={messageId}
           required
-          rows={layout === "full" ? 5 : 4}
+          rows={layout === "full" ? 4 : 3}
           value={formData.message}
           onChange={(event) => updateField("message", event.target.value)}
           aria-invalid={Boolean(fieldErrors.message)}
           aria-describedby={fieldErrors.message ? `${messageId}-error` : undefined}
           className={cn(
-            "w-full border bg-neutral-900/50 p-4 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
+            "w-full border bg-neutral-900/50 px-4 py-3 text-white placeholder:text-white/30 transition-all focus:border-purple-400 focus:outline-none focus:ring-1 focus:ring-purple-400/30",
             fieldErrors.message ? "border-red-400/60" : "border-white/15",
           )}
-          placeholder="Tell us about your brand, goals, launch date and share any links (website, Instagram, refs)."
+          placeholder="Goals, bottlenecks, timing, links."
         />
         {fieldErrors.message ? (
           <p id={`${messageId}-error`} className="text-sm text-red-400">
@@ -332,7 +358,7 @@ export function ContactForm({
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 py-5 font-bold uppercase tracking-[0.25em] text-black shadow-[0_10px_40px_rgba(0,0,0,0.6)] transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 py-4 font-bold uppercase tracking-[0.24em] text-black shadow-[0_10px_40px_rgba(0,0,0,0.6)] transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? "Sending..." : submitLabel}
       </button>
@@ -344,18 +370,20 @@ export function ContactForm({
       ) : null}
 
       {layout === "full" ? (
-        <div className="space-y-2 pt-2">
-          <p className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]">What happens next</p>
-          <ul className="space-y-1 text-xs leading-relaxed text-white/70 md:text-sm">
-            <li>1. We review your request within 24-48 hours.</li>
-            <li>2. Quick call to align scope, timeline, and goals.</li>
-            <li>3. You get a clear proposal and launch plan.</li>
-          </ul>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {["Review in 24h", "15-min alignment", "Proposal + roadmap"].map((step) => (
+            <span
+              key={step}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-white/65"
+            >
+              {step}
+            </span>
+          ))}
         </div>
       ) : null}
 
-      <p className="text-xs leading-relaxed text-white/50">
-        By submitting, you agree to be contacted about your project. We never share your details.
+      <p className="text-[11px] leading-relaxed text-white/45">
+        Private and confidential.
       </p>
     </form>
   )

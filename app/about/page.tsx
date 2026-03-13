@@ -1,10 +1,9 @@
 import Image from "next/image"
-import Link from "next/link"
 import type { Metadata } from "next"
+import { ArrowRight, ShieldCheck, Signal, Waves } from "lucide-react"
 
 import { JsonLd } from "@/components/seo/json-ld"
 import { Button } from "@/components/shared/button"
-import { StudioStats } from "@/components/shared/studio-stats"
 import { TrackedLink } from "@/components/tracking/tracked-link"
 import {
   ABSOLUTE_LOGO_URL,
@@ -16,6 +15,77 @@ import {
   SOCIAL_LINKS,
 } from "@/lib/site-config"
 import { createBreadcrumbJsonLd, createMetadata } from "@/lib/seo"
+
+const impactStats = [
+  {
+    label: "50+ projects shipped",
+    detail: "Built & Scaled 13K+ organic follower communities",
+  },
+  {
+    label: "5+ years building",
+    detail: "Design, development, content, and launch systems",
+  },
+  {
+    label: "100+ releases supported",
+    detail: "Music, creator, and brand-led digital rollouts",
+  },
+] as const
+
+const highLevelServices = [
+  {
+    title: "Web Systems",
+    text: "Conversion-first builds for brands that need a stronger digital front door.",
+    href: "/services#web-design",
+  },
+  {
+    title: "Social Growth",
+    text: "Strategy, management, and production designed to build authority.",
+    href: "/services#social-content",
+  },
+  {
+    title: "Launch Packages",
+    text: "Tighter digital rollouts where site, content, and story move together.",
+    href: "/services#digital-launch",
+  },
+] as const
+
+const trustPillars = [
+  {
+    title: "Strategic Mastery",
+    text: "Scaled organic communities from zero to 13K+ engaged followers.",
+    icon: Signal,
+  },
+  {
+    title: "Production Excellence",
+    text: "Music production background that sharpens visual and sonic quality.",
+    icon: Waves,
+  },
+  {
+    title: "Elite Execution",
+    text: "Mission-driven precision derived from military leadership experience.",
+    icon: ShieldCheck,
+  },
+] as const
+
+const stack = [
+  { name: "Next.js", mark: "N" },
+  { name: "React", mark: "R" },
+  { name: "TypeScript", mark: "TS" },
+  { name: "Tailwind", mark: "TW" },
+  { name: "Framer", mark: "F" },
+  { name: "WebGL", mark: "W" },
+  { name: "DaVinci", mark: "D" },
+  { name: "Figma", mark: "FG" },
+] as const
+
+const clientLogos = [
+  { name: "Acoustic", src: "/Logos/acoustic-logo.png" },
+  { name: "Next Pro", src: "/Logos/Next-pro-logo.png" },
+  { name: "Noise", src: "/Logos/Noise-logo.png" },
+  { name: "Pazam", src: "/Logos/Pazam-logo.png" },
+  { name: "Rotca", src: "/Logos/Rotca-logo.png" },
+  { name: "Super Group", src: "/Logos/Super-Group-logo.png" },
+] as const
 
 export const metadata: Metadata = createMetadata({
   title: `About | ${SITE_NAME} - LA Web Design & Content Studio`,
@@ -115,8 +185,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* STORY + IMAGE */}
-      <section id="story" className="max-w-6xl mx-auto mb-24">
+      {/* FOUNDER BIO */}
+      <section id="founder-bio" className="max-w-6xl mx-auto mb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           {/* Image */}
           <div className="relative aspect-square bg-neutral-950 border border-white/10 rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
@@ -134,23 +204,41 @@ export default function AboutPage() {
 
           {/* Copy */}
           <div className="space-y-7">
+            <p className="text-sm uppercase tracking-[0.18em] text-white/55 leading-[1.4]">
+              Founder Bio
+            </p>
+
             <h2 className="font-bold uppercase tracking-tight text-3xl md:text-4xl lg:text-5xl">
-              Built for modern attention
+              The Visionary Behind the Lens
             </h2>
 
             <p className="text-white/70 leading-relaxed text-base md:text-lg">
-              Websites, content, and social as one system. Built to feel premium and perform like a product.
+              WAIN Creative Co. was founded by <strong className="text-white font-semibold">Ofir Wainboim</strong>, a digital strategist who operates at the intersection of creative artistry and tactical precision.
             </p>
 
             <p className="text-white/70 leading-relaxed text-base md:text-lg">
-              Full‑stack and hands‑on: design, development, content, and social that drive trust and growth.
+              With a background as a <strong className="text-white font-semibold">Combat Intelligence Officer</strong> and a <strong className="text-white font-semibold">professional sound engineer</strong>, Ofir brings a unique level of mission-critical discipline and high-fidelity production to every brand.
             </p>
 
             <p className="text-white/70 leading-relaxed text-base md:text-lg">
-              No templates. Custom, grid‑aligned builds engineered to convert and scale.
+              After scaling organic communities to over <strong className="text-white font-semibold">13,000 followers</strong> and shipping <strong className="text-white font-semibold">50+ digital launches</strong>, he built WAIN to help Los Angeles brands dominate the digital landscape with systems that feel expensive and move numbers.
             </p>
 
-            <StudioStats layout="grid" className="pt-4" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pt-4">
+              {impactStats.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-xl border border-white/10 bg-white/[0.04] px-6 py-5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
+                >
+                  <p className="text-sm md:text-base leading-relaxed text-white/82">
+                    {item.label}
+                  </p>
+                  <p className="mt-2 text-xs md:text-sm leading-relaxed text-white/55">
+                    {item.detail}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -207,7 +295,7 @@ export default function AboutPage() {
       <section className="max-w-6xl mx-auto mb-24">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { k: "50+ launches delivered", v: "Across web + social" },
+            { k: "50+ launches delivered", v: "Built & Scaled 13K+ organic follower communities" },
             { k: "5+ years in digital", v: "Design, dev, content" },
             { k: "LA-based, global-ready", v: "Remote projects worldwide" },
           ].map((b) => (
@@ -229,57 +317,15 @@ export default function AboutPage() {
               What we do
             </h2>
             <p className="text-white/70 leading-relaxed text-base md:text-lg">
-              End‑to‑end creative and digital execution for brands that want a serious upgrade in look, motion, and performance.
+              A high-level view only. The full breakdown lives on the Services page.
             </p>
-            <a href="#cta" className="inline-block mt-6 text-sm uppercase tracking-[0.18em] text-white/80 border-b border-white/25 pb-1 hover:text-white hover:border-white transition-colors">
-              Start a Project
-            </a>
           </div>
 
-          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Web Design and Development",
-                text:
-                  "High-end websites and landing pages that feel cinematic but load fast and convert hard.",
-                meta: "Typical build: 2-3 weeks",
-              },
-              {
-                title: "Social Media Management",
-                text:
-                  "Monthly content systems, daily brand presence, and platforms that grow consistently.",
-                meta: "30-day content roadmap",
-              },
-              {
-                title: "Content Production",
-                text:
-                  "Short-form and long-form visuals built for attention, retention, and brand authority.",
-                meta: "8-12 short-form videos",
-              },
-              {
-                title: "Brand Identity and Visuals",
-                text:
-                  "Design language, typography, layouts, and a cohesive look across every touchpoint.",
-                meta: "Full visual cohesion",
-              },
-              {
-                title: "Growth Strategy",
-                text:
-                  "Organic and paid campaigns, funnels, and distribution that push real outcomes.",
-                meta: "Funnels + paid support",
-              },
-              {
-                title: "Creator Services",
-                text:
-                  "Release pages, EPKs, visualizers, and digital systems tailored for artists and creators.",
-                meta: "Artist-ready launches",
-              },
-            ].map((item, idx) => (
+          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {highLevelServices.map((item) => (
               <div
                 key={item.title}
-                className={`group relative border border-white/10 p-8 rounded-xl hover:scale-[1.01] hover:shadow-[0_14px_40px_rgba(0,0,0,0.55)] transition-all overflow-hidden ${
-                  idx % 3 === 1 ? "bg-white/[0.04] hover:border-white/30" : "bg-neutral-950 hover:bg-white/5 hover:border-white/20"
-                }`}
+                className="group relative border border-white/10 p-8 rounded-xl bg-neutral-950 hover:bg-white/5 hover:border-white/20 hover:scale-[1.01] hover:shadow-[0_14px_40px_rgba(0,0,0,0.55)] transition-all overflow-hidden"
               >
                 <h3 className="font-bold uppercase tracking-tight text-lg md:text-xl lg:text-2xl mb-3">
                   {item.title}
@@ -287,9 +333,14 @@ export default function AboutPage() {
                 <p className="text-white/70 leading-relaxed text-base md:text-lg">
                   {item.text}
                 </p>
-                <p className="mt-4 text-xs md:text-sm uppercase tracking-[0.18em] text-white/60">
-                  {item.meta}
-                </p>
+                <TrackedLink
+                  href={item.href}
+                  event="click_services_from_about"
+                  className="mt-6 inline-flex items-center gap-2 text-xs md:text-sm uppercase tracking-[0.18em] text-white/70 hover:text-white transition-colors"
+                >
+                  <span>View Service</span>
+                  <ArrowRight className="w-4 h-4" />
+                </TrackedLink>
                 <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
@@ -298,32 +349,16 @@ export default function AboutPage() {
       </section>
 
       {/* WHY US */}
-      <section id="why-us" className="max-w-6xl mx-auto mb-24 border-t border-white/10 pt-20">
+      <section id="why-us" className="max-w-6xl mx-auto mb-28 md:mb-32 border-t border-white/10 pt-24 md:pt-32">
         <h2 className="font-bold uppercase tracking-tight text-3xl md:text-4xl lg:text-5xl mb-10">
           Why Wain Creative
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Design that performs",
-              text:
-                "Every pixel has a job. We build clean hierarchy, sharp grids, and conversion paths that feel effortless.",
-            },
-            {
-              title: "Content that moves fast",
-              text:
-                "Built for modern attention spans. Storytelling, motion, and scroll‑stopping clarity that earns retention.",
-            },
-            {
-              title: "Systems over randomness",
-              text:
-                "No posting and praying. We build repeatable content engines and funnels that grow predictably.",
-            },
-          ].map((v) => (
-            <div key={v.title} className="group relative border border-white/10 p-8 bg-neutral-950 rounded-xl hover:bg-white/5 hover:border-white/20 hover:scale-[1.01] hover:shadow-[0_14px_40px_rgba(0,0,0,0.55)] transition-all overflow-hidden">
-              <div className="w-10 h-10 mb-4 rounded-full bg-gradient-to-br from-orange-500/20 to-purple-600/20 border border-white/10 flex items-center justify-center text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
-                Win
+          {trustPillars.map((v) => (
+            <div key={v.title} className="group relative border border-white/10 p-10 md:p-12 bg-neutral-950 rounded-xl hover:bg-white/5 hover:border-white/20 hover:scale-[1.01] hover:shadow-[0_14px_40px_rgba(0,0,0,0.55)] transition-all overflow-hidden">
+              <div className="w-12 h-12 mb-5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-white/75">
+                <v.icon className="w-5 h-5" />
               </div>
               <h3 className="font-bold uppercase tracking-tight text-lg md:text-xl lg:text-2xl mb-3">
                 {v.title}
@@ -366,12 +401,20 @@ export default function AboutPage() {
             </div>
             <div className="lg:w-1/2 space-y-6">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md mx-auto">
-                {["Acoustic Ba Salon", "Next Pro", "Noise Music Group", "Pazam Gram", "IDF Music", "Super Group"].map((logo) => (
+                {clientLogos.map((logo) => (
                   <div
-                    key={logo}
-                    className="border border-white/10 rounded-lg px-3 py-2 bg-neutral-900/60 text-center text-[11px] sm:text-sm uppercase tracking-[0.14em] text-white/70"
+                    key={logo.name}
+                    className="border border-white/10 rounded-lg px-4 py-3 bg-neutral-900/60 flex items-center justify-center h-[80px]"
                   >
-                    {logo}
+                    <div className="relative h-9 w-[116px]">
+                      <Image
+                        src={logo.src}
+                        alt={`${logo.name} logo`}
+                        fill
+                        sizes="116px"
+                        className="object-contain"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -408,37 +451,31 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4">
             <h2 className="font-bold uppercase tracking-tight text-3xl md:text-4xl lg:text-5xl mb-4">
-              <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
-                The Stack
-              </span>
+              The Stack
             </h2>
             <p className="text-white/60 leading-relaxed text-base md:text-lg">
-              Tools we trust to ship premium digital products with speed and precision.
+              The tools behind the build. Clean, fast, and production-ready.
             </p>
           </div>
 
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              "Next.js",
-              "React",
-              "TypeScript",
-              "Tailwind",
-              "Framer Motion",
-              "WebGL",
-              "DaVinci Resolve",
-              "Figma",
-            ].map((tool) => (
+          <div className="lg:col-span-8 rounded-2xl border border-white/10 bg-neutral-950/80 p-6 md:p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+              {stack.map((tool) => (
               <div
-                key={tool}
-                className="border border-white/10 bg-neutral-950 rounded-lg hover:bg-white/5 hover:border-white/20 transition-all"
+                key={tool.name}
+                className="border border-white/10 bg-black/20 rounded-xl hover:bg-white/[0.03] hover:border-white/20 transition-all"
               >
-                <div className="h-full w-full p-5 flex items-center justify-center text-center">
-                  <span className="text-xs md:text-sm uppercase tracking-widest text-white/80 leading-tight">
-                    {tool}
+                <div className="h-full w-full p-5 md:p-6 flex flex-col items-center justify-center text-center gap-3">
+                  <div className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-sm font-semibold uppercase tracking-[0.16em] text-white/70">
+                    {tool.mark}
+                  </div>
+                  <span className="text-xs md:text-sm uppercase tracking-widest text-white/65 leading-tight">
+                    {tool.name}
                   </span>
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>

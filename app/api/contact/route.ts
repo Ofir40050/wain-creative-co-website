@@ -5,6 +5,11 @@ import {
   getContactFieldErrors,
   type ContactFormValues,
 } from "@/lib/contact"
+import {
+  buildAlignmentCallInvitationEmail,
+  CONTACT_REPLY_TO,
+  CONTACT_SENDER,
+} from "@/lib/contact-email"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const NOTION_TOKEN = process.env.NOTION_TOKEN
@@ -37,7 +42,7 @@ const isRateLimited = (clientKey: string) => {
 const createNotionLead = async (payload: ContactFormValues) => {
   if (!NOTION_TOKEN || !NOTION_DATABASE_ID) return false
 
-  const { name, email, projectType, budgetRange, timeline, message } = payload
+  const { name, email, projectType, referralSource, budgetRange, timeline, message } = payload
   const serviceOption = (() => {
     const normalized = (projectType || "").toLowerCase()
     if (normalized.includes("web")) return "Web Design"
@@ -72,6 +77,12 @@ const createNotionLead = async (payload: ContactFormValues) => {
   if (budgetRange) {
     properties.Budget = {
       rich_text: [{ text: { content: budgetRange } }],
+    }
+  }
+
+  if (referralSource) {
+    properties["Referral Source"] = {
+      rich_text: [{ text: { content: referralSource } }],
     }
   }
 
@@ -135,13 +146,16 @@ export async function POST(req: Request) {
       )
     }
 
-    const { name, email, projectType, budgetRange, timeline, message } = parsed.data
+    const { name, email, projectType, referralSource, budgetRange, timeline, message } = parsed.data
     const timelineText = timeline || "Not specified"
-    const firstName = name.split(" ")[0] || "there"
+    const autoresponseEmail = buildAlignmentCallInvitationEmail({
+      name,
+      brandName: "Your Brand",
+    })
 
     const [internal, autoresponse] = await Promise.all([
       resend.emails.send({
-        from: "Wain Creative Co <contact@waincreative.com>",
+        from: CONTACT_SENDER,
         to: ["wain@waincreative.com", "contact@waincreative.com"],
         replyTo: email,
         subject: `New project inquiry – ${name}`,
@@ -151,6 +165,7 @@ export async function POST(req: Request) {
           `• Name: ${name}`,
           `• Email: ${email}`,
           `• Project type: ${projectType}`,
+          `• Heard about us: ${referralSource}`,
           `• Budget: ${budgetRange}`,
           `• Timeline: ${timelineText}`,
           "",
@@ -161,26 +176,12 @@ export async function POST(req: Request) {
         ].join("\n"),
       }),
       resend.emails.send({
-        from: "Wain Creative Co <contact@waincreative.com>",
+        from: CONTACT_SENDER,
         to: email,
-        replyTo: "contact@waincreative.com",
-        subject: "Got your project brief – Wain Creative Co",
-        text: [
-          `Hey ${firstName},`,
-          "",
-          "Thanks for reaching out and sharing your project with Wain Creative Co.",
-          "We just got your form and will review it within the next 24-48 hours.",
-          "",
-          "If it looks like a good fit, we’ll follow up with:",
-          "• a few clarifying questions, or",
-          "• a short call to map the project and your launch.",
-          "",
-          "If you need to add anything in the meantime, you can reply directly to this email.",
-          "",
-          "Talk soon,",
-          "Wain Creative Co",
-          "contact@waincreative.com",
-        ].join("\n"),
+        replyTo: CONTACT_REPLY_TO,
+        subject: autoresponseEmail.subject,
+        text: autoresponseEmail.text,
+        html: autoresponseEmail.html,
       }),
     ])
 

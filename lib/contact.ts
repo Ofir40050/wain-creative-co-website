@@ -1,10 +1,11 @@
 import { z } from "zod"
 
 export const PROJECT_TYPE_OPTIONS = [
-  "Web Design and Development",
-  "Social Media Strategy and Management",
-  "Content Production and Editing",
-  "Creator or Artist Digital Services",
+  "Web: Professional Hub ($3,500+)",
+  "Web: Custom Ecosystem ($6,000+)",
+  "Social: The Authority Strategy ($1,500/mo)",
+  "Social: The Powerhouse Production ($2,500/mo)",
+  "The Launch Package (Web + Social)",
   "Other",
 ] as const
 
@@ -28,6 +29,7 @@ type VisibleContactField =
   | "name"
   | "email"
   | "projectType"
+  | "referralSource"
   | "budgetRange"
   | "timeline"
   | "message"
@@ -72,6 +74,11 @@ export const contactFormSchema = z.object({
     .email("Use a valid email so we can respond.")
     .max(200, "Keep your email under 200 characters."),
   projectType: projectTypeSchema,
+  referralSource: z
+    .string()
+    .trim()
+    .min(2, "Tell us how you heard about us.")
+    .max(200, "Keep this under 200 characters."),
   budgetRange: budgetSchema,
   timeline: timelineSchema,
   message: z
@@ -102,6 +109,7 @@ export const CONTACT_FORM_DEFAULT_VALUES: ContactFormValues = {
   name: "",
   email: "",
   projectType: PROJECT_TYPE_OPTIONS[0],
+  referralSource: "",
   budgetRange: "Not sure yet",
   timeline: "Next 1-3 months",
   message: "",
@@ -126,6 +134,7 @@ export const coerceContactInput = (input: Record<string, unknown>) => ({
   name: String(input.name ?? input.fullName ?? "").trim(),
   email: String(input.email ?? "").trim(),
   projectType: String(input.projectType ?? "").trim(),
+  referralSource: String(input.referralSource ?? input.howDidYouHear ?? "").trim(),
   budgetRange: String(input.budgetRange ?? input.budget ?? "").trim(),
   timeline: String(input.timeline ?? "").trim(),
   message: String(input.message ?? "").trim(),

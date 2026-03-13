@@ -16,9 +16,9 @@ import { createBreadcrumbJsonLd, createMetadata } from "@/lib/seo"
 
 const PAGE_URL = `${SITE_URL}/contact`
 
-const pageTitle = `Contact ${SITE_NAME} | Start Your Project`
+const pageTitle = `Contact ${SITE_NAME} | Start Your Next Launch`
 const pageDescription =
-  "Start your project with Wain Creative Co in Los Angeles. Tell us what you need and get next steps within 24-48 hours."
+  "Start your next launch with Wain Creative Co in Los Angeles. Tell us about your mission and get a strategic scope and timeline within 24 hours."
 const pageKeywords = [
   "Wain Creative Co contact",
   "Los Angeles web design studio",
@@ -30,29 +30,29 @@ const pageKeywords = [
 
 const faqs = [
   {
-    question: "How fast will you respond after I submit?",
+    question: "How fast can we expect results?",
     answer:
-      "We reply within 24-48 hours with next steps, scope, and timing.",
+      "We focus on immediate impact and long-term authority. Web projects prioritize speed and conversion lift, while social systems apply proven organic growth frameworks. Strategy starts on day one, with measurable momentum typically building within 30 to 60 days.",
   },
   {
-    question: "Do you work with brands outside Los Angeles?",
+    question: "Do you work with brands outside of Los Angeles?",
     answer:
-      "Yes. We work remotely with clients across the US and internationally.",
+      "Yes. We are based in Los Angeles, but built to work globally. Our remote-first execution systems make collaboration seamless across the US and internationally.",
   },
   {
-    question: "What details should I include to get an accurate proposal?",
+    question: 'What makes WAIN\'s production "Studio-Grade"?',
     answer:
-      "Share your goals, deliverables, launch date, and budget range.",
+      "Our founder's background in professional sound engineering and music production brings elite sonic and visual fidelity to every asset. We use professional tools and post-production workflows to create content that feels expensive and performs.",
   },
   {
-    question: "Do you handle strategy, design, build, and content?",
+    question: "How involved do I need to be in the process?",
     answer:
-      "Yes. We can handle strategy, design, development, and content.",
+      "We value your vision and protect your time. Our process is built for elite execution, so we handle the heavy lifting from strategy to post-production while keeping you aligned through focused briefs.",
   },
   {
-    question: "Can you support after launch?",
+    question: "Do you handle both organic growth and paid advertising?",
     answer:
-      "Yes. Ongoing support is available after launch.",
+      "Yes. We offer full-stack digital management, including organic community building, Meta Ads, Google Ads, and lead generation systems designed to scale efficiently.",
   },
 ]
 
