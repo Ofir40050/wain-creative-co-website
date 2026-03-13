@@ -29,7 +29,7 @@ export function ContactPageContent({ faqs = [] }: ContactPageContentProps) {
           <div className="h-px w-40 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 mb-10" />
 
           <p className="text-white/70 leading-relaxed text-base md:text-lg max-w-xl mb-12">
-            Tell us what you’re building. Whether it’s a premium website, a social system, or a content rollout, we’ll reply with a clear plan, timeline, and next steps.
+            Tell us what you need. We’ll reply with scope, timing, and next steps.
           </p>
 
           <div className="space-y-10">
@@ -45,7 +45,7 @@ export function ContactPageContent({ faqs = [] }: ContactPageContentProps) {
                 contact@waincreative.com
               </a>
               <p className="text-white/60 leading-relaxed text-base md:text-lg mt-2">
-                Average response time: within 24-48 hours.
+                Reply within 24-48 hours.
               </p>
             </div>
 
@@ -63,7 +63,7 @@ export function ContactPageContent({ faqs = [] }: ContactPageContentProps) {
                 +1 (213) 589-5458
               </a>
               <p className="text-white/60 leading-relaxed text-base md:text-lg mt-2">
-                Fast coordination for moving parts and tight timelines.
+                Best for quick coordination.
               </p>
             </div>
 
@@ -104,7 +104,7 @@ export function ContactPageContent({ faqs = [] }: ContactPageContentProps) {
             {/* Availability Note */}
             <div className="group relative p-7 bg-neutral-950 border border-white/10 rounded-none hover:border-white/20 hover:bg-white/5 transition-all overflow-hidden">
               <p className="text-white/60 leading-relaxed text-base md:text-lg">
-                Now booking new projects. If you have a launch date or deadline, mention it so we can prioritize correctly.
+                Now booking new projects. Include your deadline if you have one.
               </p>
               <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -133,13 +133,13 @@ export function ContactPageContent({ faqs = [] }: ContactPageContentProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-1 space-y-4">
             <p className="text-sm uppercase tracking-[0.18em] text-white/60 leading-[1.45]">
-              FAQs & Expectations
+              FAQs
             </p>
             <h2 id="contact-faq-heading" className="text-3xl md:text-4xl font-bold uppercase tracking-tight leading-[1.05]">
-              What to expect when we work together
+              What to expect
             </h2>
             <p className="text-white/70 leading-relaxed text-base">
-              Transparent scope, timelines, and deliverables so you know exactly how we’ll launch your site or campaign.
+              Clear scope, timing, and next steps.
             </p>
           </div>
           <div className="lg:col-span-2">

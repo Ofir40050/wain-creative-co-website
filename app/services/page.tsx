@@ -6,14 +6,62 @@ import { TrackedLink } from "@/components/tracking/tracked-link"
 import { ABSOLUTE_LOGO_URL, BRAND_CITY, BRAND_REGION, SITE_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/site-config"
 import { createBreadcrumbJsonLd, createMetadata } from "@/lib/seo"
 
+const pricingCollections = [
+  {
+    id: "website-packages",
+    eyebrow: "Website Packages",
+    title: "Starter, Professional, Premium",
+    description: "Three clear entry points.",
+    packages: [
+      {
+        name: "Starter",
+        price: "$1,800",
+        details: "Lean launch site.",
+      },
+      {
+        name: "Professional",
+        price: "$3,500",
+        details: "Custom site + sharper UX.",
+      },
+      {
+        name: "Premium",
+        price: "$6,000+",
+        details: "Flagship build + deeper scope.",
+      },
+    ],
+  },
+  {
+    id: "social-packages",
+    eyebrow: "Social Packages",
+    title: "Starter, Growth, Studio",
+    description: "Monthly tiers for brands that want momentum.",
+    packages: [
+      {
+        name: "Starter",
+        price: "$900/mo",
+        details: "Strategy + consistency.",
+      },
+      {
+        name: "Growth",
+        price: "$1,500/mo",
+        details: "More output + faster growth.",
+      },
+      {
+        name: "Studio",
+        price: "$2,500+/mo",
+        details: "Hands-on studio support.",
+      },
+    ],
+  },
+] as const
+
 const services = [
   {
     id: "web-design",
     number: "01",
     title: "Web Design & Development",
     subtitle: "High-End Websites That Actually Perform",
-    description:
-      "We design and build digital experiences that feel cinematic, fast, and intentional. Every page, every interaction, every detail is crafted to elevate your brand and drive action.",
+    description: "Custom websites with strong UX, fast performance, and premium motion.",
     features: [
       "Custom UI/UX",
       "Next.js + React Development",
@@ -22,11 +70,10 @@ const services = [
       "CMS Setup & Training",
       "Speed + SEO Optimization",
     ],
-    outcome:
-      "A flagship-level website that looks premium, sells better, and scales with your business.",
+    outcome: "A premium site built to convert and scale.",
     cta: "Start a Web\nProject",
     featureNote: "Built to convert, load fast, and feel like a real product.",
-    startingAt: "Packages start at $800",
+    startingAt: "Packages start at $1,800",
     accent: "from-orange-500 via-pink-500 to-purple-600",
   },
   {
@@ -34,8 +81,7 @@ const services = [
     number: "02",
     title: "Social Media Management & Content Strategy",
     subtitle: "Full-Service Social Management + Short-Form Content",
-    description:
-      "We run your social like a studio - strategy, production, posting, and optimization. Not more posts, but content with purpose, voice, and momentum that compounds month after month.",
+    description: "Strategy, posting, short-form production, and growth management.",
     features: [
       "Monthly Content Strategy",
       "Full Social Management",
@@ -46,11 +92,10 @@ const services = [
       "Paid Ads Setup & Optimization (Meta/TikTok)",
       "On-Site Shooting Days Available",
     ],
-    outcome:
-      "Consistent content that builds trust, authority, and real followers who convert.",
+    outcome: "Consistent content that builds trust and drives growth.",
     cta: "Start Social\nStrategy",
     featureNote: "Engineered for consistent growth, daily trust-building, and scalable reach.",
-    startingAt: "Packages start at $600/mo",
+    startingAt: "Packages start at $900/mo",
     accent: "from-purple-600 via-pink-500 to-orange-500",
   },
   {
@@ -58,8 +103,7 @@ const services = [
     number: "03",
     title: "Website + Social Launch Package",
     subtitle: "Full Digital Launch: Website + 30-Day Content Rollout",
-    description:
-      "A complete digital upgrade combining a premium custom website with a high-volume content rollout. Designed for brands and creators who want to launch, relaunch, or scale fast with cinematic storytelling and consistent content.",
+    description: "Website + 30-day content rollout for a clean, fast brand launch.",
     features: [
       "Custom Website (4-6 Pages)",
       "Next.js + React Development",
@@ -70,11 +114,10 @@ const services = [
       "SEO + Speed Optimization",
       "Brand Cohesion Across All Platforms",
     ],
-    outcome:
-      "A unified brand presence that looks premium, feels modern, and launches with momentum across website and social.",
+    outcome: "One coordinated launch across web and social.",
     cta: "Launch My\nBrand",
     featureNote: "Your entire digital identity elevated in one seamless package.",
-    startingAt: "Packages start at $1,800",
+    startingAt: "Packages start at $3,800",
     accent: "from-orange-500 via-purple-600 to-pink-500",
   },
   {
@@ -82,8 +125,7 @@ const services = [
     number: "04",
     title: "Content Day (Shoot + Edit)",
     subtitle: "High-Volume Content, Delivered Fast",
-    description:
-      "A focused shoot day designed to stock you up with premium short-form content. We capture, cut, and deliver assets ready for Reels, TikTok, and ads - clean, sharp, and on-brand.",
+    description: "Shoot once, leave with a month of short-form content.",
     features: [
       "Half-Day or Full-Day Shoots",
       "6-12 Reels Delivered",
@@ -92,11 +134,10 @@ const services = [
       "Same-Week Delivery",
       "On-Brand Color & Sound Polish",
     ],
-    outcome:
-      "A full month of high-retention content in one day, ready to post and built to perform.",
+    outcome: "A month of content, ready to post.",
     cta: "Book a\nContent Day",
     featureNote: "The fastest way to upgrade your social presence with volume and quality.",
-    startingAt: "Half-days start at $400",
+    startingAt: "Half-day $500 | Full-day $900",
     accent: "from-purple-600 via-pink-500 to-orange-500",
   },
   {
@@ -104,8 +145,7 @@ const services = [
     number: "05",
     title: "Video Editing & Post-Production",
     subtitle: "Cinematic Editing for Modern Brands",
-    description:
-      "We edit like a studio. Fast pacing, perfect color, strong storytelling, and visuals that feel premium everywhere they appear.",
+    description: "Fast, polished edits for short-form and commercial work.",
     features: [
       "Short-Form Social Video",
       "Brand & Commercial Edits",
@@ -113,11 +153,10 @@ const services = [
       "Motion Graphics & Titles",
       "Clean Sound Design & Mix",
     ],
-    outcome:
-      "High-retention videos that keep people watching and elevate your brand instantly.",
+    outcome: "Sharper videos with stronger retention.",
     cta: "Start Editing\nProject",
     featureNote: "Cut for retention, pacing, and a premium finish.",
-    startingAt: "Projects start at $250",
+    startingAt: "Short-form from $95 | Commercial from $400",
     accent: "from-pink-500 via-purple-600 to-orange-500",
   },
   {
@@ -125,8 +164,7 @@ const services = [
     number: "06",
     title: "Creator & Artist Digital Services",
     subtitle: "The Digital Identity Behind Your Release",
-    description:
-      "We design the full visual ecosystem behind creators, artists, and releases. More than assets, a complete rollout.",
+    description: "Release pages, EPKs, visuals, and rollout assets for creators.",
     features: [
       "Release & Campaign Landing Pages",
       "EPKs & Media Kits",
@@ -134,8 +172,7 @@ const services = [
       "Brand Identity for Creators",
       "Content Packs for Social",
     ],
-    outcome:
-      "A world-class digital presence that makes your music, release, or brand look major.",
+    outcome: "A cleaner digital presence for your release.",
     cta: "Start Creator\nProject",
     featureNote: "A full rollout stack that makes your release look major.",
     startingAt: "Packages start at $500",
@@ -264,11 +301,73 @@ export default function ServicesPage() {
         <div className="h-px w-40 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 mb-8" />
 
         <p className="text-white/70 leading-relaxed text-base md:text-lg max-w-xl">
-          Wain Creative Co delivers end-to-end digital execution for brands, businesses, and creators who want a premium upgrade. Clean design, sharp storytelling, and systems that actually grow.
+          Premium web, content, and social systems for brands that want a sharper digital presence.
         </p>
-        <p className="text-white/50 text-sm md:text-base mt-6">
+        <p className="text-white/50 text-sm md:text-base mt-4">
           Trusted by 100+ releases and growing brands.
         </p>
+      </section>
+
+      <section className="max-w-6xl mx-auto mb-20 md:mb-24">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-t border-white/10 pt-12 md:pt-14">
+          <div>
+            <p className="text-sm uppercase tracking-[0.18em] text-white/50 mb-4">Packages</p>
+            <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight leading-[0.92]">
+              Simple Pricing
+            </h2>
+          </div>
+          <p className="max-w-xl text-white/60 leading-relaxed text-sm md:text-base">
+            Clean starting points. Custom scopes available.
+          </p>
+        </div>
+
+        <div className="mt-10 md:mt-12 grid gap-8 lg:grid-cols-2">
+          {pricingCollections.map((collection) => (
+            <section
+              key={collection.id}
+              aria-labelledby={collection.id}
+              className="h-full border border-white/10 bg-neutral-950/80 rounded-2xl p-7 md:p-8 flex flex-col"
+            >
+              <div className="min-h-[128px] md:h-[200px] lg:h-[216px]">
+                <p className="text-xs uppercase tracking-[0.28em] text-white/45 mb-4">
+                  {collection.eyebrow}
+                </p>
+                <h3
+                  id={collection.id}
+                  className="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-4"
+                >
+                  {collection.title}
+                </h3>
+                <p className="text-white/60 leading-relaxed text-sm md:text-base">
+                  {collection.description}
+                </p>
+              </div>
+
+              <div className="grid gap-4 flex-1 content-start lg:auto-rows-fr">
+                {collection.packages.map((pkg) => (
+                  <div
+                    key={`${collection.id}-${pkg.name}`}
+                    className="h-full rounded-xl border border-white/10 bg-white/[0.03] px-5 py-5 md:px-6"
+                  >
+                    <div className="flex min-h-[96px] items-center justify-between gap-4">
+                      <div className="flex-1">
+                        <p className="text-xs uppercase tracking-[0.28em] text-white/45 mb-2">
+                          {pkg.name}
+                        </p>
+                        <p className="text-white/65 leading-relaxed text-sm md:text-base">
+                          {pkg.details}
+                        </p>
+                      </div>
+                      <p className="text-xl md:text-2xl font-semibold whitespace-nowrap text-white text-right">
+                        {pkg.price}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </section>
 
       {/* Anchor Menu */}
@@ -359,16 +458,13 @@ export default function ServicesPage() {
                         </li>
                       ))}
                     </ul>
-                    <p className="text-white/50 text-sm md:text-base mt-6 leading-relaxed">
-                      {service.featureNote}
-                    </p>
                   </div>
 
                   {/* Outcome + CTA */}
                   <div className="group bg-neutral-950 p-7 md:p-8 border border-white/10 rounded-lg flex flex-col justify-between hover:border-white/20 hover:bg-white/5 transition-all">
                     <div>
                       <h3 className="font-bold uppercase tracking-tight text-lg md:text-xl lg:text-2xl mb-4">
-                        What You Get
+                        Outcome
                       </h3>
 
                       <p className="text-white/70 leading-relaxed text-base md:text-lg">

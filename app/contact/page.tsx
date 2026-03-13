@@ -18,7 +18,7 @@ const PAGE_URL = `${SITE_URL}/contact`
 
 const pageTitle = `Contact ${SITE_NAME} | Start Your Project`
 const pageDescription =
-  "Start your project with Wain Creative Co in Los Angeles. Tell us what you’re building and get a clear plan, timeline, and next steps within 24-48 hours."
+  "Start your project with Wain Creative Co in Los Angeles. Tell us what you need and get next steps within 24-48 hours."
 const pageKeywords = [
   "Wain Creative Co contact",
   "Los Angeles web design studio",
@@ -32,27 +32,27 @@ const faqs = [
   {
     question: "How fast will you respond after I submit?",
     answer:
-      "We review every inquiry within 24-48 hours and reply with a short Loom or written plan outlining scope, timeline, and next steps.",
+      "We reply within 24-48 hours with next steps, scope, and timing.",
   },
   {
     question: "Do you work with brands outside Los Angeles?",
     answer:
-      "Yes. While we are based in Los Angeles, we work with US and international clients remotely using async updates, live workshops, and clear milestones.",
+      "Yes. We work remotely with clients across the US and internationally.",
   },
   {
     question: "What details should I include to get an accurate proposal?",
     answer:
-      "Share your goals, required pages or deliverables, launch date, and budget range. Links to inspiration or existing assets help us scope faster.",
+      "Share your goals, deliverables, launch date, and budget range.",
   },
   {
     question: "Do you handle strategy, design, build, and content?",
     answer:
-      "Yes. We align strategy, UX/UI design, Next.js development, and content systems so your launch feels premium and performs across web and social.",
+      "Yes. We can handle strategy, design, development, and content.",
   },
   {
     question: "Can you support after launch?",
     answer:
-      "We offer retainers for optimization, new pages, SEO improvements, and monthly content support so your site keeps improving post-launch.",
+      "Yes. Ongoing support is available after launch.",
   },
 ]
 

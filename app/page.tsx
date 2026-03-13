@@ -78,7 +78,7 @@ export default function Home() {
           </p>
 
           <div className="text-white/90 text-lg md:text-xl font-semibold mb-10 md:mb-12 animate-[fadeInUp_0.6s_ease-out_0.35s_both]">
-            Starting at $1,800
+            Starting at $3,800
           </div>
 
           <div className="text-white/70 text-sm md:text-base max-w-md mx-auto mb-10 md:mb-12 space-y-3 text-left animate-[fadeInUp_0.6s_ease-out_0.4s_both]">
